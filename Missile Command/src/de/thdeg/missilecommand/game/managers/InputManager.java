@@ -1,19 +1,21 @@
-package de.thdeg.missilecommand.game;
+package de.thdeg.missilecommand.game.managers;
 
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.Cross;
+import de.thdeg.missilecommand.graphics.movingobjects.Cross;
 
 import java.awt.event.KeyEvent;
 
-public class InputManager {
+
+class InputManager {
     protected final GameView gameView;
     protected final Cross cross;
     private final static boolean DIAGONAL_MOVEMENT_ALLOWED = true;
 
-    public InputManager(GameView gameView){
+    InputManager(GameView gameView, Cross gameObjectManager) {
         this.gameView = gameView;
         this.cross = new Cross(gameView);
     }
+
 
     private void processKeyCode(int keyCode) {
         if (keyCode == KeyEvent.VK_UP) {

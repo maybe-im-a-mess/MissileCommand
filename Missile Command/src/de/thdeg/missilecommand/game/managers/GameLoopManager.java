@@ -1,9 +1,6 @@
-package de.thdeg.missilecommand.game;
+package de.thdeg.missilecommand.game.managers;
 
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.*;
-
-import java.awt.event.KeyEvent;
 
 /**
  * This class manages the main game loop of the game
@@ -23,7 +20,7 @@ public class GameLoopManager {
         this.gameView.setStatusText("Olha Solodovnyk - Java Programmierung SS 2021");
         this.gameView.setWindowIcon("Missile Command.png");
         this.gameObjectManager = new GameObjectManager(gameView);
-        this.inputManager = new InputManager(gameView, gameObjectManager.getClass());
+        this.inputManager = new InputManager(gameView, gameObjectManager.getCross());
         this.gamePlayManager = new GamePlayManager(gameView, gameObjectManager);
     }
 

@@ -1,23 +1,20 @@
-package de.thdeg.missilecommand.graphics;
+package de.thdeg.missilecommand.graphics.superclasses;
 
 import de.thdeg.missilecommand.gameview.GameView;
 
 /**
- * Represents a new sign
+ * Represents a new shot
  *
  * @author Olha Solodovnyk
  */
-public class Panels extends GameObject {
-
-    protected boolean disappear;
-
+public class Shot extends GameObject {
 
     /**
      * Creates a new game objects
      *
      * @param gameView
      */
-    public Panels(GameView gameView) {
+    public Shot(GameView gameView) {
         super(gameView);
     }
 }

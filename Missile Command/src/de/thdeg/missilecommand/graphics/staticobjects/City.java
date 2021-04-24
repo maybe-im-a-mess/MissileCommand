@@ -1,4 +1,6 @@
-package de.thdeg.missilecommand.graphics;
+package de.thdeg.missilecommand.graphics.staticobjects;
+
+import de.thdeg.missilecommand.graphics.Position;
 
 /**
  * Represents a new city

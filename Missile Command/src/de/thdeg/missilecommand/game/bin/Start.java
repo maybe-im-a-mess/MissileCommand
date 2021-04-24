@@ -1,4 +1,6 @@
-package de.thdeg.missilecommand.game;
+package de.thdeg.missilecommand.game.bin;
+
+import de.thdeg.missilecommand.game.managers.GameLoopManager;
 
 /**
  * Starts the game

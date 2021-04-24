@@ -1,13 +1,15 @@
-package de.thdeg.missilecommand.graphics;
+package de.thdeg.missilecommand.graphics.superclasses;
 
+import de.thdeg.missilecommand.game.managers.GamePlayManager;
 import de.thdeg.missilecommand.gameview.GameView;
+import de.thdeg.missilecommand.graphics.Position;
 
 /**
  * Represents a new object
  *
  * @author Olha Solodovnyk
  */
-class GameObject {
+public class GameObject {
 
     protected final GameView gameView;
     protected Position position;
@@ -16,6 +18,7 @@ class GameObject {
     protected double rotation;
     protected int width;
     protected int height;
+    protected GamePlayManager gamePlayManager;
 
     /**
      * Creates a new game object
@@ -46,6 +49,10 @@ class GameObject {
      */
     public Position getPosition() {
         return position;
+    }
+
+    public void setGamePlayManager(GamePlayManager gamePlayManager){
+        this.gamePlayManager = gamePlayManager;
     }
 
 }

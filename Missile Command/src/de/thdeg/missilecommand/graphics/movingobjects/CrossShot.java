@@ -1,6 +1,8 @@
-package de.thdeg.missilecommand.graphics;
+package de.thdeg.missilecommand.graphics.movingobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
+import de.thdeg.missilecommand.graphics.Position;
+import de.thdeg.missilecommand.graphics.superclasses.Shot;
 
 /**
  * Represents shots of the main player
