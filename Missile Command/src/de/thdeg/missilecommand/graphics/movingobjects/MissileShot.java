@@ -4,6 +4,8 @@ import de.thdeg.missilecommand.gameview.GameView;
 import de.thdeg.missilecommand.graphics.Position;
 import de.thdeg.missilecommand.graphics.superclasses.Shot;
 
+import java.awt.*;
+
 /**
  * Represents a new missile
  *
@@ -11,23 +13,22 @@ import de.thdeg.missilecommand.graphics.superclasses.Shot;
  */
 public class MissileShot extends Shot {
 
-    private final static String MISSILE =
-            "GG\n"
-                    + "GG";
     private final double damage;
     private boolean alive;
 
     /**
      * A new object "Missile" is created
+     *
+     * @param gameView Window to show the GameObject on.
      */
     public MissileShot(GameView gameView) {
         super(gameView);
-        position = new Position(45, 1);
-        size = 1;
+        this.position = new Position(45, 1);
+        this.size = 1;
         this.damage = 10;
-        speedInPixel = 1;
+        this.speedInPixel = 1;
         this.alive = true;
-        rotation = 0;
+        this.rotation = 0;
     }
 
     /**
@@ -43,16 +44,14 @@ public class MissileShot extends Shot {
     private void split() {
     }
 
-    //Exploding
-    private void explode() {
-    }
+    private void disappear(){}
 
     /**
      * Draws the defender to the canvas
      */
     @Override
     public void addToCanvas() {
-        gameView.addBlockImageToCanvas(MISSILE, position.x, position.y, size, rotation);
+        gameView.addRectangleToCanvas(position.x, position.y, width, height, 0, true, Color.WHITE);
     }
 
     @Override

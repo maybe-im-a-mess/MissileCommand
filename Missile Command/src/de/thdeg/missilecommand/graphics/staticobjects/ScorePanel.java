@@ -12,8 +12,8 @@ import java.awt.*;
  * @author Olha Solodovnyk
  */
 public class ScorePanel extends Panels {
-    private String score;
-    private String highscore;
+    private Integer score;
+    private Integer highscore;
 
     /**
      * Creates a new score
@@ -39,7 +39,7 @@ public class ScorePanel extends Panels {
      */
     @Override
     public void addToCanvas() {
-        gameView.addTextToCanvas(score, position.x, position.y, size, Color.white, rotation);
+        gameView.addTextToCanvas(score.toString(), position.x, position.y, size, Color.white, rotation);
     }
 
 }

@@ -27,6 +27,7 @@ public class Plane extends GameObject {
     private final double damage;
     private boolean alive;
     private boolean flyFromLeftToRight;
+    private boolean shooting;
 
     /**
      * A new object "Plane" is created
@@ -73,10 +74,10 @@ public class Plane extends GameObject {
 
 
     private void shoot() {
+        shooting = true;
     }
 
-    private void explode() {
-    }
+    private void disappear(){}
 
     @Override
     public String toString() {
