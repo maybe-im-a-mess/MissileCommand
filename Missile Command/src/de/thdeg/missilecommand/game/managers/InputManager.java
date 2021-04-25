@@ -7,13 +7,13 @@ import java.awt.event.KeyEvent;
 
 
 class InputManager {
-    protected final GameView gameView;
-    protected final Cross cross;
+    GameView gameView;
+    Cross cross;
     private final static boolean DIAGONAL_MOVEMENT_ALLOWED = true;
 
-    InputManager(GameView gameView, Cross gameObjectManager) {
+    InputManager(GameView gameView, Cross cross) {
+        this.cross = cross;
         this.gameView = gameView;
-        this.cross = new Cross(gameView);
     }
 
 

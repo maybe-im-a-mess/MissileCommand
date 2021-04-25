@@ -11,7 +11,7 @@ import de.thdeg.missilecommand.graphics.staticobjects.ScorePanel;
 
 class GameObjectManager {
 
-    private GameView gameView;
+    GameView gameView;
     private final Plane plane;
     private final Defender defender;
     private final Ground ground;
@@ -21,13 +21,13 @@ class GameObjectManager {
 
 
     GameObjectManager(GameView gameView) {
-        this.gameView = new GameView();
-        this.plane = new Plane(this.gameView);
-        this.defender = new Defender(this.gameView);
-        this.ground = new Ground(this.gameView);
-        this.missileShot = new MissileShot(this.gameView);
-        this.cross = new Cross(this.gameView);
-        this.scorePanel = new ScorePanel(this.gameView);
+        this.gameView = gameView;
+        this.plane = new Plane(gameView);
+        this.defender = new Defender(gameView);
+        this.ground = new Ground(gameView);
+        this.missileShot = new MissileShot(gameView);
+        this.scorePanel = new ScorePanel(gameView);
+        this.cross = new Cross(gameView);
     }
 
     void updateGameObjects() {
@@ -38,7 +38,6 @@ class GameObjectManager {
         missileShot.addToCanvas();
         defender.addToCanvas();
         cross.addToCanvas();
-        gameView.printCanvas();
     }
 
     Cross getCross() {

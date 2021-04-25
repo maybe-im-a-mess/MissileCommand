@@ -6,7 +6,7 @@ import de.thdeg.missilecommand.gameview.GameView;
  * This class manages the main game loop of the game
  */
 public class GameLoopManager {
-    private final GameView gameView;
+    private final static GameView gameView = new GameView();
     private final InputManager inputManager;
     private final GameObjectManager gameObjectManager;
     private final GamePlayManager gamePlayManager;
@@ -15,7 +15,6 @@ public class GameLoopManager {
      * Creates the main loop
      */
     public GameLoopManager() {
-        this.gameView = new GameView();
         this.gameView.setWindowTitle("Missile Command");
         this.gameView.setStatusText("Olha Solodovnyk - Java Programmierung SS 2021");
         this.gameView.setWindowIcon("Missile Command.png");
