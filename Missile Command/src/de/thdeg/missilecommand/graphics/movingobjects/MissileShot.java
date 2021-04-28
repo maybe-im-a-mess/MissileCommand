@@ -31,6 +31,7 @@ public class MissileShot extends Shot {
         this.rotation = 0;
     }
 
+
     /**
      * Updates the current or start position of the missile
      */
@@ -44,7 +45,8 @@ public class MissileShot extends Shot {
     private void split() {
     }
 
-    private void disappear(){}
+    private void disappear() {
+    }
 
     /**
      * Draws the defender to the canvas

@@ -12,15 +12,15 @@ import de.thdeg.missilecommand.graphics.superclasses.GameObject;
 public class Ground extends GameObject {
 
     private final static String GROUND =
-            "    Y    Y                                    Y    Y                                  Y    Y\n"
-                    + "    YYYYYY                                    YYYYYY                                  YYYYYY\n"
-                    + "   YYYYYYYY                                  YYYYYYYY                                YYYYYYYY\n"
-                    + "  YYYYYYYYYY                                YYYYYYYYYY                              YYYYYYYYYY\n"
-                    + " YYYYYYYYYYYY                              YYYYYYYYYYYY                            YYYYYYYYYYYY\n"
-                    + "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\n"
-                    + "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\n"
-                    + "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\n"
-                    + "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY";
+            "    O    O                                    O    O                                  O    O\n"
+                    + "    OOOOOO                                    OOOOOO                                  OOOOOO\n"
+                    + "   OOOOOOOO                                  OOOOOOOO                                OOOOOOOO\n"
+                    + "  OOOOOOOOOO                                OOOOOOOOOO                              OOOOOOOOOO\n"
+                    + " OOOOOOOOOOOO                              OOOOOOOOOOOO                            OOOOOOOOOOOO\n"
+                    + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n"
+                    + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n"
+                    + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n"
+                    + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
 
 
     /**

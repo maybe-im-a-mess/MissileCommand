@@ -51,8 +51,18 @@ public class GameObject {
         return position;
     }
 
-    public void setGamePlayManager(GamePlayManager gamePlayManager){
+    /**
+     * Setter for a game play manager
+     */
+    public void setGamePlayManager(GamePlayManager gamePlayManager) {
         this.gamePlayManager = gamePlayManager;
+    }
+
+    /**
+     * Updates status of an object
+     */
+    public void updateStatus() {
+
     }
 
 }

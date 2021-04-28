@@ -13,6 +13,7 @@ import java.awt.*;
  */
 public class PlaneShot extends Shot {
 
+
     /**
      * Creates a new shot
      */
@@ -23,17 +24,20 @@ public class PlaneShot extends Shot {
         this.width = (int) (17 * size);
         this.height = (int) (12 * size);
         this.rotation = 0;
+
     }
 
+
     @Override
-    public void updatePosition(){
+    public void updatePosition() {
         position.down(speedInPixel);
     }
 
-    private void disappear(){}
+    private void disappear() {
+    }
 
     @Override
-    public void addToCanvas(){
+    public void addToCanvas() {
         gameView.addRectangleToCanvas(position.x, position.y, width, height, 0, true, Color.WHITE);
     }
 }

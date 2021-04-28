@@ -14,13 +14,12 @@ public class StartLevelPanel extends Panels {
     private final static String FIRST_LINE = "PLAYER 1";
     private final static String SECOND_LINE = "1 x POINTS";
     private final static String THIRD_LINE = "DEFEND                  CITIES";
-    private final static int widthFirstLine = 8/2 * 20;
-    private final static int widthSecondLine = 10/2 * 20;
-    private final static int widthThirdLine = 30/2 * 20;
-    private final static Position positionFirst = new Position((GameView.WIDTH / 2) - widthFirstLine, 150);
-    private final static Position positionSecond = new Position((GameView.WIDTH / 2) - widthSecondLine, 200);
-    private final static Position positionThird = new Position(GameView.WIDTH / 2 - widthThirdLine, 400);
-
+    private final static int WIDTH_FIRST_LINE = 8 / 2 * 20;
+    private final static int WIDTH_SECOND_LINE = 10 / 2 * 20;
+    private final static int WIDTH_THIRD_LINE = 30 / 2 * 20;
+    private final static Position POSITION_FIRST = new Position((GameView.WIDTH / 2) - WIDTH_FIRST_LINE, 150);
+    private final static Position POSITION_SECOND = new Position((GameView.WIDTH / 2) - WIDTH_SECOND_LINE, 200);
+    private final static Position POSITION_THIRD = new Position(GameView.WIDTH / 2 - WIDTH_THIRD_LINE, 400);
 
 
     /**
@@ -33,15 +32,18 @@ public class StartLevelPanel extends Panels {
         this.size = 20;
         this.rotation = 0;
         this.disappear = true;
+
+    }
+
+
+    @Override
+    public void updatePosition() {
     }
 
     @Override
-    public void updatePosition(){}
-
-    @Override
-    public void addToCanvas(){
-        gameView.addTextToCanvas(FIRST_LINE, positionFirst.x, positionFirst.y, size, Color.BLUE, rotation);
-        gameView.addTextToCanvas(SECOND_LINE, positionSecond.x, positionSecond.y, size, Color.BLUE, rotation);
-        gameView.addTextToCanvas(THIRD_LINE, positionThird.x, positionThird.y, size, Color.BLUE, rotation);
+    public void addToCanvas() {
+        gameView.addTextToCanvas(FIRST_LINE, POSITION_FIRST.x, POSITION_FIRST.y, size, Color.BLUE, rotation);
+        gameView.addTextToCanvas(SECOND_LINE, POSITION_SECOND.x, POSITION_SECOND.y, size, Color.BLUE, rotation);
+        gameView.addTextToCanvas(THIRD_LINE, POSITION_THIRD.x, POSITION_THIRD.y, size, Color.BLUE, rotation);
     }
 }

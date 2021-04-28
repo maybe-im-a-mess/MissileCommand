@@ -13,7 +13,7 @@ import java.awt.*;
  */
 public class Cross extends GameObject {
 
-    private final boolean SHOW_X = false;
+    private final static boolean SHOW_X = false;
     private final static String CROSS =
             "  B\n"
                     + "  B\n"

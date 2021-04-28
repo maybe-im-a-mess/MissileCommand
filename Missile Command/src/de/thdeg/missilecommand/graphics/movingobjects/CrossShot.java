@@ -13,6 +13,7 @@ import java.awt.*;
  */
 public class CrossShot extends Shot {
 
+
     /**
      * Creates a new shot
      *
@@ -26,7 +27,9 @@ public class CrossShot extends Shot {
         this.height = (int) (12 * size);
         this.rotation = 0;
         this.speedInPixel = 2.5;
+
     }
+
 
     @Override
     public void updatePosition() {
@@ -36,7 +39,8 @@ public class CrossShot extends Shot {
     private void explode() {
     }
 
-    private void disappear(){}
+    private void disappear() {
+    }
 
     @Override
     public void addToCanvas() {

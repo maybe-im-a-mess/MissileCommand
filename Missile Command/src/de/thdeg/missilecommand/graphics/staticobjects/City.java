@@ -28,25 +28,28 @@ public class City extends GameObject {
                     + " bbbbbbBBBBBBBbbbbbB";
     private final double health;
     private boolean alive;
-    private Position cities[] = new Position[6];
+    private final Position[] city;
 
     /**
      * A new object "City" is created
      */
     public City(GameView gameView) {
         super(gameView);
-        this.cities[0] = new Position(155, 460);
-        this.cities[1] = new Position(250, 460);
-        this.cities[2] = new Position(350, 460);
-        this.cities[3] = new Position(560, 460);
-        this.cities[4] = new Position(660, 460);
-        this.cities[5] = new Position(760, 460);
+        city = new Position[6];
+        this.city[0] = new Position(155, 460);
+        this.city[1] = new Position(250, 460);
+        this.city[2] = new Position(350, 460);
+        this.city[3] = new Position(560, 460);
+        this.city[4] = new Position(660, 460);
+        this.city[5] = new Position(760, 460);
         this.size = 3;
         this.width = (int) (22 * size);
         this.height = (int) (14 * size);
         this.health = 100;
         this.alive = true;
+
     }
+
 
     private boolean isDestroyed() {
         if (health == 0) {
@@ -69,13 +72,13 @@ public class City extends GameObject {
     }
 
     @Override
-    public void addToCanvas(){
-        gameView.addBlockImageToCanvas(CITY, cities[0].x, cities[0].y, size, rotation);
-        gameView.addBlockImageToCanvas(CITY, cities[1].x, cities[1].y, size, rotation);
-        gameView.addBlockImageToCanvas(CITY, cities[2].x, cities[2].y, size, rotation);
-        gameView.addBlockImageToCanvas(CITY, cities[3].x, cities[3].y, size, rotation);
-        gameView.addBlockImageToCanvas(CITY, cities[4].x, cities[4].y, size, rotation);
-        gameView.addBlockImageToCanvas(CITY, cities[5].x, cities[5].y, size, rotation);
+    public void addToCanvas() {
+        gameView.addBlockImageToCanvas(CITY, city[0].x, city[0].y, size, rotation);
+        gameView.addBlockImageToCanvas(CITY, city[1].x, city[1].y, size, rotation);
+        gameView.addBlockImageToCanvas(CITY, city[2].x, city[2].y, size, rotation);
+        gameView.addBlockImageToCanvas(CITY, city[3].x, city[3].y, size, rotation);
+        gameView.addBlockImageToCanvas(CITY, city[4].x, city[4].y, size, rotation);
+        gameView.addBlockImageToCanvas(CITY, city[5].x, city[5].y, size, rotation);
     }
 
 }

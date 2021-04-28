@@ -22,6 +22,7 @@ public class Defender extends GameObject {
     private boolean alive;
 
 
+
     /**
      * A new object "Plane" is created
      */
@@ -34,7 +35,9 @@ public class Defender extends GameObject {
         this.damage = 20;
         this.alive = true;
         this.rotation = 0;
+
     }
+
 
     /**
      * Updates the position of an object

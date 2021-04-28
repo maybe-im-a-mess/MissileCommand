@@ -29,6 +29,7 @@ public class Plane extends GameObject {
     private boolean flyFromLeftToRight;
     private boolean shooting;
 
+
     /**
      * A new object "Plane" is created
      */
@@ -42,7 +43,10 @@ public class Plane extends GameObject {
         this.speedInPixel = 1;
         this.alive = true;
         this.rotation = 0;
+
     }
+
+
 
     /**
      * Draws the plane to the canvas

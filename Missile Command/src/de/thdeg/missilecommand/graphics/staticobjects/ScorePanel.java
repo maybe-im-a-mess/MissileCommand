@@ -15,6 +15,7 @@ public class ScorePanel extends Panels {
     private Integer score;
     private Integer highscore;
 
+
     /**
      * Creates a new score
      */
@@ -28,9 +29,11 @@ public class ScorePanel extends Panels {
         this.disappear = false;
     }
 
+
     private void countScore() {
     }
-    private void highscore(){
+
+    private void highscore() {
 
     }
 
