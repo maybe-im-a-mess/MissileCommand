@@ -7,8 +7,8 @@ import java.awt.event.KeyEvent;
 
 
 class InputManager {
-    GameView gameView;
-    Cross cross;
+    private final GameView gameView;
+    private final Cross cross;
     private final static boolean DIAGONAL_MOVEMENT_ALLOWED = true;
 
     InputManager(GameView gameView, Cross cross) {
@@ -20,17 +20,13 @@ class InputManager {
     private void processKeyCode(int keyCode) {
         if (keyCode == KeyEvent.VK_UP) {
             cross.up();
-        }
-        if (keyCode == KeyEvent.VK_DOWN) {
+        } else if (keyCode == KeyEvent.VK_DOWN) {
             cross.down();
-        }
-        if (keyCode == KeyEvent.VK_RIGHT) {
+        } else if (keyCode == KeyEvent.VK_RIGHT) {
             cross.right();
-        }
-        if (keyCode == KeyEvent.VK_LEFT) {
+        } else if (keyCode == KeyEvent.VK_LEFT) {
             cross.left();
-        }
-        if (keyCode == KeyEvent.VK_SPACE) {
+        } else if (keyCode == KeyEvent.VK_SPACE) {
             cross.shoot();
         }
     }

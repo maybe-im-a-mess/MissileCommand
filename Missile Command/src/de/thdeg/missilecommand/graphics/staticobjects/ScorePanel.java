@@ -1,19 +1,19 @@
 package de.thdeg.missilecommand.graphics.staticobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.Position;
-import de.thdeg.missilecommand.graphics.superclasses.Panels;
+import de.thdeg.missilecommand.graphics.base.Position;
+import de.thdeg.missilecommand.graphics.base.Panels;
 
 import java.awt.*;
 
 /**
- * Represents score and highscore
+ * Displays the current score and highscore of the player.
  *
  * @author Olha Solodovnyk
  */
 public class ScorePanel extends Panels {
-    private Integer score;
-    private Integer highscore;
+    private int score;
+    private int highscore;
 
 
     /**
@@ -22,19 +22,32 @@ public class ScorePanel extends Panels {
     public ScorePanel(GameView gameView) {
         super(gameView);
         this.position = new Position(GameView.WIDTH / 2, 1);
-        this.size = 5;
+        this.size = 20;
         this.width = (int) (17 * size);
         this.height = (int) (12 * size);
         this.rotation = 0;
         this.disappear = false;
+        this.score = 0;
+        this.highscore = 0;
     }
 
 
-    private void countScore() {
+    /**
+     * Sets the current score.
+     *
+     * @param score The current score.
+     */
+    public void setScore(int score) {
+        this.score = score;
     }
 
-    private void highscore() {
-
+    /**
+     * Sets the current highscore.
+     *
+     * @param highscore The highscore of the player.
+     */
+    public void setHighscore(int highscore) {
+        this.highscore = highscore;
     }
 
     /**
@@ -42,7 +55,7 @@ public class ScorePanel extends Panels {
      */
     @Override
     public void addToCanvas() {
-        gameView.addTextToCanvas(score.toString(), position.x, position.y, size, Color.white, rotation);
+        gameView.addTextToCanvas(String.valueOf(score), position.x, position.y, size, Color.white, rotation);
     }
 
 }

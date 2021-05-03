@@ -1,4 +1,4 @@
-package de.thdeg.missilecommand.graphics.superclasses;
+package de.thdeg.missilecommand.graphics.base;
 
 import de.thdeg.missilecommand.gameview.GameView;
 

@@ -1,8 +1,8 @@
 package de.thdeg.missilecommand.graphics.movingobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.Position;
-import de.thdeg.missilecommand.graphics.superclasses.Shot;
+import de.thdeg.missilecommand.graphics.base.Position;
+import de.thdeg.missilecommand.graphics.base.Shot;
 
 import java.awt.*;
 
@@ -20,10 +20,11 @@ public class PlaneShot extends Shot {
     public PlaneShot(GameView gameView) {
         super(gameView);
         this.position = new Position(100, 80);
-        this.size = 5;
-        this.width = (int) (17 * size);
-        this.height = (int) (12 * size);
+        this.size = 1;
+        this.width = (int) (3 * size);
+        this.height = (int) (3 * size);
         this.rotation = 0;
+        this.speedInPixel = 1;
 
     }
 

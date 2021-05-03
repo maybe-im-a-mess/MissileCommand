@@ -1,8 +1,8 @@
 package de.thdeg.missilecommand.graphics.movingobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.Position;
-import de.thdeg.missilecommand.graphics.superclasses.GameObject;
+import de.thdeg.missilecommand.graphics.base.Position;
+import de.thdeg.missilecommand.graphics.base.GameObject;
 
 import java.awt.*;
 
@@ -25,13 +25,13 @@ public class Cross extends GameObject {
 
 
     /**
-     * A new object "Main Player" is created
+     * A new Cross is created
      *
      * @param gameView GameView to show the shot on.
      */
     public Cross(GameView gameView) {
         super(gameView);
-        this.position = new Position(GameView.WIDTH / 2, GameView.HEIGHT / 2);
+        this.position = new Position(GameView.WIDTH / 2d, GameView.HEIGHT / 2d);
         this.size = 3;
         this.width = (int) (3 * size);
         this.height = (int) (5 * size);
@@ -73,7 +73,15 @@ public class Cross extends GameObject {
      * Is used for shooting
      */
     public void shoot() {
-        shooting = true;
+        if(SHOW_X) {
+            this.shooting = true;
+        } else{
+            if(gameView.timerExpired("Shot", "Cross")) {
+                gameView.setTimer("Shot", "Cross", 300);
+                gamePlayManager.shootCrossShot(position);
+            }
+        }
+
     }
 
     @Override

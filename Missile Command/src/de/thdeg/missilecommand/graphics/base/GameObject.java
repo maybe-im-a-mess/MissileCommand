@@ -1,8 +1,7 @@
-package de.thdeg.missilecommand.graphics.superclasses;
+package de.thdeg.missilecommand.graphics.base;
 
 import de.thdeg.missilecommand.game.managers.GamePlayManager;
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.Position;
 
 /**
  * Represents a new object

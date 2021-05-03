@@ -1,8 +1,10 @@
 package de.thdeg.missilecommand.graphics.movingobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.Position;
-import de.thdeg.missilecommand.graphics.superclasses.GameObject;
+import de.thdeg.missilecommand.graphics.base.GameObject;
+import de.thdeg.missilecommand.graphics.base.Position;
+
+import java.util.Random;
 
 /**
  * Represents a new plane
@@ -28,6 +30,8 @@ public class Plane extends GameObject {
     private boolean alive;
     private boolean flyFromLeftToRight;
     private boolean shooting;
+    private Random random;
+    private String objectID;
 
 
     /**
@@ -35,7 +39,9 @@ public class Plane extends GameObject {
      */
     public Plane(GameView gameView) {
         super(gameView);
-        this.position = new Position(1, 80);
+        this.random = new Random();
+        this.position = new Position(1, random.nextInt(GameView.HEIGHT / 4));
+        objectID = "plane" + position.x + position.y;
         this.size = 2;
         this.width = (int) (17 * size);
         this.height = (int) (12 * size);
@@ -43,9 +49,7 @@ public class Plane extends GameObject {
         this.speedInPixel = 1;
         this.alive = true;
         this.rotation = 0;
-
     }
-
 
 
     /**
@@ -63,7 +67,7 @@ public class Plane extends GameObject {
     public void updatePosition() {
         if (position.x + width <= GameView.WIDTH && rotation == 0) {
             flyFromLeftToRight = true;
-        } else if (position.x + width <= 0 + width && rotation == 180) {
+        } else if (position.x + width <= width && rotation == 180) {
             rotation = 0;
         } else {
             rotation = 180;
@@ -81,7 +85,19 @@ public class Plane extends GameObject {
         shooting = true;
     }
 
-    private void disappear(){}
+    private void disappear() {
+    }
+
+    /**
+     * Updates status of the object. Is used for shooting
+     */
+    @Override
+    public void updateStatus() {
+        if (gameView.timerExpired("Shoot", objectID)) {
+            gameView.setTimer("Shoot", objectID, 1000);
+            gamePlayManager.shootPlaneShot(position);
+        }
+    }
 
     @Override
     public String toString() {

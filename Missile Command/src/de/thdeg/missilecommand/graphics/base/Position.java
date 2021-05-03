@@ -1,4 +1,4 @@
-package de.thdeg.missilecommand.graphics;
+package de.thdeg.missilecommand.graphics.base;
 
 /**
  * This class is used to set and change the position of all the objects in a game

@@ -1,8 +1,8 @@
 package de.thdeg.missilecommand.graphics.staticobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.Position;
-import de.thdeg.missilecommand.graphics.superclasses.GameObject;
+import de.thdeg.missilecommand.graphics.base.Position;
+import de.thdeg.missilecommand.graphics.base.GameObject;
 
 /**
  * Represents a new city

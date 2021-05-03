@@ -1,10 +1,11 @@
 package de.thdeg.missilecommand.graphics.movingobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.Position;
-import de.thdeg.missilecommand.graphics.superclasses.Shot;
+import de.thdeg.missilecommand.graphics.base.Position;
+import de.thdeg.missilecommand.graphics.base.Shot;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * Represents a new missile
@@ -15,6 +16,8 @@ public class MissileShot extends Shot {
 
     private final double damage;
     private boolean alive;
+    private String objectID;
+    private final Random random;
 
     /**
      * A new object "Missile" is created
@@ -23,12 +26,16 @@ public class MissileShot extends Shot {
      */
     public MissileShot(GameView gameView) {
         super(gameView);
-        this.position = new Position(45, 1);
+        this.random = new Random();
+        this.position = new Position(random.nextInt(GameView.WIDTH - 50), 1);
         this.size = 1;
         this.damage = 10;
         this.speedInPixel = 1;
         this.alive = true;
         this.rotation = 0;
+        this.width = (int) (3 *size);
+        this.height = (int) (3 * size);
+        this.objectID = "Missile" + position.x + position.y;
     }
 
 
@@ -38,6 +45,13 @@ public class MissileShot extends Shot {
     @Override
     public void updatePosition() {
         position.down(speedInPixel);
+    }
+
+    @Override
+    public void updateStatus() {
+        if(position.y > GameView.HEIGHT - 30) {
+            gamePlayManager.destroy(this);
+        }
     }
 
 
