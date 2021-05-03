@@ -7,7 +7,7 @@ import de.thdeg.missilecommand.gameview.GameView;
  *
  * @author Olha Solodovnyk
  */
-public class Shot extends GameObject {
+public class Shot extends GameObject implements MovingGameObject {
 
     /**
      * Creates a new game objects
@@ -16,5 +16,19 @@ public class Shot extends GameObject {
      */
     public Shot(GameView gameView) {
         super(gameView);
+    }
+
+    @Override
+    public void updatePosition() {
+    }
+
+    @Override
+    public void addToCanvas() {
+
+    }
+
+    @Override
+    public void updateStatus() {
+
     }
 }

@@ -1,8 +1,8 @@
 package de.thdeg.missilecommand.graphics.movingobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.base.Position;
 import de.thdeg.missilecommand.graphics.base.GameObject;
+import de.thdeg.missilecommand.graphics.base.Position;
 
 import java.awt.*;
 
@@ -73,10 +73,10 @@ public class Cross extends GameObject {
      * Is used for shooting
      */
     public void shoot() {
-        if(SHOW_X) {
+        if (SHOW_X) {
             this.shooting = true;
-        } else{
-            if(gameView.timerExpired("Shot", "Cross")) {
+        } else {
+            if (gameView.timerExpired("Shot", "Cross")) {
                 gameView.setTimer("Shot", "Cross", 300);
                 gamePlayManager.shootCrossShot(position);
             }
@@ -93,4 +93,9 @@ public class Cross extends GameObject {
             gameView.addBlockImageToCanvas(CROSS, position.x, position.y, size, rotation);
         }
     }
+
+    @Override
+    public void updateStatus() {
+    }
 }
+

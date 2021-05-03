@@ -2,6 +2,7 @@ package de.thdeg.missilecommand.graphics.movingobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
 import de.thdeg.missilecommand.graphics.base.GameObject;
+import de.thdeg.missilecommand.graphics.base.MovingGameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
 
 import java.util.Random;
@@ -11,7 +12,7 @@ import java.util.Random;
  *
  * @author Olha Solodovnyk
  */
-public class Plane extends GameObject {
+public class Plane extends GameObject implements MovingGameObject {
 
     private final static String PLANE =
             "RR   RRR\n"

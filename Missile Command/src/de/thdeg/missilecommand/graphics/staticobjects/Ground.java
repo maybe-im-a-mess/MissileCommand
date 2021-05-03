@@ -34,13 +34,8 @@ public class Ground extends GameObject {
         height = (int) (9 * size);
     }
 
-    /**
-     * Updates the position of an object
-     */
     @Override
-    public void updatePosition() {
-        super.updatePosition();
-    }
+    public void updateStatus(){}
 
     /**
      * Draws the ground to the canvas

@@ -72,6 +72,10 @@ public class City extends GameObject {
     }
 
     @Override
+    public void updateStatus() {
+    }
+
+    @Override
     public void addToCanvas() {
         gameView.addBlockImageToCanvas(CITY, city[0].x, city[0].y, size, rotation);
         gameView.addBlockImageToCanvas(CITY, city[1].x, city[1].y, size, rotation);

@@ -2,8 +2,8 @@ package de.thdeg.missilecommand.graphics.staticobjects;
 
 
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.base.Position;
 import de.thdeg.missilecommand.graphics.base.GameObject;
+import de.thdeg.missilecommand.graphics.base.Position;
 
 /**
  * Represents a new defender missile
@@ -22,7 +22,6 @@ public class Defender extends GameObject {
     private boolean alive;
 
 
-
     /**
      * A new object "Plane" is created
      */
@@ -38,14 +37,8 @@ public class Defender extends GameObject {
 
     }
 
-
-    /**
-     * Updates the position of an object
-     */
     @Override
-    public void updatePosition() {
-        super.updatePosition();
-    }
+    public void updateStatus() {}
 
     /**
      * Draws the defender to the canvas

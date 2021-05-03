@@ -1,6 +1,7 @@
 package de.thdeg.missilecommand.graphics.movingobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
+import de.thdeg.missilecommand.graphics.base.MovingGameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
 import de.thdeg.missilecommand.graphics.base.Shot;
 
@@ -12,7 +13,7 @@ import java.util.Random;
  *
  * @author Olha Solodovnyk
  */
-public class MissileShot extends Shot {
+public class MissileShot extends Shot implements MovingGameObject {
 
     private final double damage;
     private boolean alive;

@@ -1,6 +1,7 @@
 package de.thdeg.missilecommand.graphics.movingobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
+import de.thdeg.missilecommand.graphics.base.MovingGameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
 import de.thdeg.missilecommand.graphics.base.Shot;
 
@@ -11,7 +12,7 @@ import java.awt.*;
  *
  * @author Olha Solodovnyk
  */
-public class PlaneShot extends Shot {
+public class PlaneShot extends Shot implements MovingGameObject {
 
 
     /**

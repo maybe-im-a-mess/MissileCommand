@@ -69,9 +69,6 @@ public class EndLevelPanel extends Panels {
         return bonusPoints;
     }
 
-    @Override
-    public void updatePosition() {
-    }
 
     @Override
     public void addToCanvas() {

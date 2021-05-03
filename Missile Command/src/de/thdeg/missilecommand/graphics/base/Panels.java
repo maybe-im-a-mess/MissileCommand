@@ -20,4 +20,15 @@ public class Panels extends GameObject {
     public Panels(GameView gameView) {
         super(gameView);
     }
+
+
+    @Override
+    public void addToCanvas() {
+
+    }
+
+    @Override
+    public void updateStatus() {
+
+    }
 }

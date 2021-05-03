@@ -56,10 +56,10 @@ class GameObjectManager {
         //gameObjects.add(startLevelPanel);
 
         for (GameObject gameObject : gameObjects) {
-            gameObject.updatePosition();
-            gameObject.updateStatus();
+            gameObject.update();
             gameObject.addToCanvas();
         }
+
     }
 
     Cross getCross() {

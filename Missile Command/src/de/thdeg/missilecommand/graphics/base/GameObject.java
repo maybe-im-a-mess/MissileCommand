@@ -8,7 +8,7 @@ import de.thdeg.missilecommand.gameview.GameView;
  *
  * @author Olha Solodovnyk
  */
-public class GameObject {
+public abstract class GameObject {
 
     protected final GameView gameView;
     protected Position position;
@@ -28,16 +28,9 @@ public class GameObject {
     }
 
     /**
-     * Updates the position of an object
-     */
-    public void updatePosition() {
-    }
-
-    /**
      * Draws an object to the canvas
      */
-    public void addToCanvas() {
-    }
+    public abstract void addToCanvas();
 
     /**
      * Shows the current position of an object
@@ -60,8 +53,16 @@ public class GameObject {
     /**
      * Updates status of an object
      */
-    public void updateStatus() {
+    protected abstract void updateStatus();
 
+    /**
+     * Updates the position for {@link MovingGameObject}
+     */
+    public void update() {
+        if (this instanceof MovingGameObject) {
+            ((MovingGameObject) this).updatePosition();
+        }
+        updateStatus();
     }
-
 }
+
