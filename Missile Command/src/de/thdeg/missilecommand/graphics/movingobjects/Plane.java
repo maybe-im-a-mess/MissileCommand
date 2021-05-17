@@ -95,7 +95,7 @@ public class Plane extends GameObject implements MovingGameObject {
     @Override
     public void updateStatus() {
         if (gameView.timerExpired("Shoot", objectID)) {
-            gameView.setTimer("Shoot", objectID, 1000);
+            gameView.setTimer("Shoot", objectID, 5000);
             gamePlayManager.shootPlaneShot(position);
         }
     }

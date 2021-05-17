@@ -15,6 +15,7 @@ class GameObjectManager {
     private final LinkedList<Plane> planes;
     private final LinkedList<PlaneShot> planeShots;
 
+    private final Background background;
     private final Ground ground;
     private final City city;
     private final Defender defender;
@@ -31,6 +32,7 @@ class GameObjectManager {
         this.planes = new LinkedList<>();
         this.planeShots = new LinkedList<>();
 
+        this.background = new Background(gameView);
         this.ground = new Ground(gameView);
         this.city = new City(gameView);
         this.defender = new Defender(gameView);
@@ -43,6 +45,7 @@ class GameObjectManager {
     void updateGameObjects() {
         gameObjects.clear();
 
+        gameObjects.add(background);
         gameObjects.add(ground);
         gameObjects.add(city);
         gameObjects.add(defender);
@@ -60,6 +63,23 @@ class GameObjectManager {
             gameObject.addToCanvas();
         }
 
+    }
+
+    /**
+     * Adapts the position of all game objects.
+     *
+     * @param adaptX Adaption to the right.
+     * @param adaptY Adaption downwards.
+     */
+    public void moveWorld(double adaptX, double adaptY) {
+        for (GameObject gameObject : gameObjects) {
+            if (gameObject.getClass() != Cross.class
+                    && gameObject.getClass() != Ground.class
+                    && gameObject.getClass() != ScorePanel.class
+                    && gameObject.getClass() != Defender.class) {
+                gameObject.adaptPosition(adaptX, adaptY);
+            }
+        }
     }
 
     Cross getCross() {

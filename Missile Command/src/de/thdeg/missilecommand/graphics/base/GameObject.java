@@ -64,5 +64,16 @@ public abstract class GameObject {
         }
         updateStatus();
     }
+
+    /**
+     * Adapts the position of this game object, in case the whole game world is moved.
+     *
+     * @param adaptX Adaption to the right.
+     * @param adaptY Adaption downwards.
+     */
+    public void adaptPosition(double adaptX, double adaptY) {
+        position.x += adaptX;
+        position.y += adaptY;
+    }
 }
 

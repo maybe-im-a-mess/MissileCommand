@@ -32,13 +32,13 @@ public class GamePlayManager {
     void spawnAndDestroyPlanes() {
         LinkedList<Plane> planes = gameObjectManager.getPlane();
         if (gameView.timerExpired("spawnPlane", "GamePlayManager")) {
-            gameView.setTimer("spawnPlane", "GamePlayManager", 1000);
+            gameView.setTimer("spawnPlane", "GamePlayManager", 5000);
             Plane plane = new Plane(gameView);
             plane.setGamePlayManager(this);
             planes.add(plane);
         }
         if (gameView.timerExpired("destroyPlane", "GamePlayManager")) {
-            gameView.setTimer("destroyPlane", "GamePlayManager", 5000);
+            gameView.setTimer("destroyPlane", "GamePlayManager", 10_000);
             if (!planes.isEmpty()) {
                 planes.remove(0);
             }
@@ -60,7 +60,7 @@ public class GamePlayManager {
 
         double posX = 0;
         double posY = 0;
-        posX =cross.getPosition().x;
+        posX = cross.getPosition().x;
         posY = cross.getPosition().y;
 
         double dist1 = Math.sqrt(Math.pow(posX, 2) + Math.pow((posY - GameView.HEIGHT), 2));
@@ -122,6 +122,24 @@ public class GamePlayManager {
         } else if (shot.getClass() == MissileShot.class) {
             gameObjectManager.getMissileShot().remove(shot);
         }
+    }
+
+    /**
+     * Moves the World to the left.
+     *
+     * @param speedInPixel Speed to move the World.
+     */
+    public void crossMovingRight(double speedInPixel) {
+        gameObjectManager.moveWorld(-speedInPixel, 0);
+    }
+
+    /**
+     * Moves the World to the right.
+     *
+     * @param speedInPixel Speed to move the World.
+     */
+    public void crossMovingLeft(double speedInPixel) {
+        gameObjectManager.moveWorld(speedInPixel, 0);
     }
 
 }

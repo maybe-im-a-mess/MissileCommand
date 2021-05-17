@@ -15,11 +15,11 @@ public class Cross extends GameObject {
 
     private final static boolean SHOW_X = false;
     private final static String CROSS =
-            "  B\n"
-                    + "  B\n"
-                    + "BBBBB\n"
-                    + "  B\n"
-                    + "  B\n";
+            "  W\n"
+                    + "  W\n"
+                    + "WWWWW\n"
+                    + "  W\n"
+                    + "  W\n";
     private final int missilesLeft;
     private boolean shooting;
 
@@ -45,28 +45,38 @@ public class Cross extends GameObject {
      * The position of the object changes to the left
      */
     public void left() {
-        position.x -= speedInPixel;
+        if (position.x > 1) {
+            position.left(speedInPixel);
+        } else {
+            gamePlayManager.crossMovingLeft(speedInPixel);
+        }
+
     }
 
     /**
      * The position of the object changes to the right
      */
-    public double right() {
-        return position.x += speedInPixel;
+    public void right() {
+        if (position.x < GameView.WIDTH) {
+            position.right(speedInPixel);
+        } else {
+            gamePlayManager.crossMovingRight(speedInPixel);
+        }
+
     }
 
     /**
      * The position of the object changes up
      */
-    public double up() {
-        return position.y -= speedInPixel;
+    public void up() {
+        position.up(speedInPixel);
     }
 
     /**
      * The position of the object changes down
      */
-    public double down() {
-        return position.y += speedInPixel;
+    public void down() {
+        position.down(speedInPixel);
     }
 
     /**

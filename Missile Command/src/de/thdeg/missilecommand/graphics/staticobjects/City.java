@@ -4,6 +4,8 @@ import de.thdeg.missilecommand.gameview.GameView;
 import de.thdeg.missilecommand.graphics.base.Position;
 import de.thdeg.missilecommand.graphics.base.GameObject;
 
+import java.awt.*;
+
 /**
  * Represents a new city
  *
@@ -12,20 +14,20 @@ import de.thdeg.missilecommand.graphics.base.GameObject;
 public class City extends GameObject {
 
     private final static String CITY =
-            "             B\n"
-                    + "             B\n"
-                    + "   B        BB\n"
-                    + "   BB       BB\n"
-                    + "   BB     B BB\n"
-                    + "   BB B  BBBBBB BB\n"
-                    + "   BB B  bbBBBB BB\n"
-                    + "   BBBBB bbBBBB BB\n"
-                    + "   bBBBB bbbBBb Bv\n"
-                    + " BBbbBBBbbBbBBb BbB\n"
-                    + " BBbbbBBbbBbbBbbBbbB\n"
-                    + "BBBbbbBBbBBbbbbbbbbB\n"
-                    + " bbbbbbbBBBBBbbbbbbBB\n"
-                    + " bbbbbbBBBBBBBbbbbbB";
+            "             G\n"
+                    + "             G\n"
+                    + "   G        GG\n"
+                    + "   GG       GG\n"
+                    + "   GG     G GG\n"
+                    + "   GG G  GGGGGG GG\n"
+                    + "   GG G  ggGGGG GG\n"
+                    + "   GGGGG ggGGGG GG\n"
+                    + "   gGGGG gggGGg Gv\n"
+                    + " GGggGGGggGgGGg GgG\n"
+                    + " GGgggGGggGggGggGggG\n"
+                    + "GGGgggGGgGGggggggggG\n"
+                    + " gggggggGGGGGggggggGG\n"
+                    + " ggggggGGGGGGGgggggG";
     private final double health;
     private boolean alive;
     private final Position[] city;
@@ -36,18 +38,21 @@ public class City extends GameObject {
     public City(GameView gameView) {
         super(gameView);
         city = new Position[6];
-        this.city[0] = new Position(155, 460);
-        this.city[1] = new Position(250, 460);
-        this.city[2] = new Position(350, 460);
-        this.city[3] = new Position(560, 460);
-        this.city[4] = new Position(660, 460);
-        this.city[5] = new Position(760, 460);
+        this.city[0] = new Position(155, 480);
+        this.city[1] = new Position(250, 469);
+        this.city[2] = new Position(350, 475);
+        this.city[3] = new Position(560, 475);
+        this.city[4] = new Position(660, 480);
+        this.city[5] = new Position(760, 469);
         this.size = 3;
         this.width = (int) (22 * size);
         this.height = (int) (14 * size);
         this.health = 100;
         this.alive = true;
-
+        Color color1 = new Color(109, 60, 128);
+        Color color2 = new Color(133, 81, 130);
+        this.gameView.setColorForBlockImage('g', color1);
+        this.gameView.setColorForBlockImage('G', color2);
     }
 
 

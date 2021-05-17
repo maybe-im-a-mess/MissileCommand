@@ -1,8 +1,10 @@
 package de.thdeg.missilecommand.graphics.staticobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.base.Position;
 import de.thdeg.missilecommand.graphics.base.GameObject;
+import de.thdeg.missilecommand.graphics.base.Position;
+
+import java.awt.*;
 
 /**
  * Represents ground in the game
@@ -12,12 +14,12 @@ import de.thdeg.missilecommand.graphics.base.GameObject;
 public class Ground extends GameObject {
 
     private final static String GROUND =
-            "    O    O                                    O    O                                  O    O\n"
-                    + "    OOOOOO                                    OOOOOO                                  OOOOOO\n"
-                    + "   OOOOOOOO                                  OOOOOOOO                                OOOOOOOO\n"
-                    + "  OOOOOOOOOO                                OOOOOOOOOO                              OOOOOOOOOO\n"
-                    + " OOOOOOOOOOOO                              OOOOOOOOOOOO                            OOOOOOOOOOOO\n"
-                    + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n"
+            "    Y    Y                                    Y    Y                                  Y    Y\n"
+                    + "    YYYYYY                                    YYYYYY                                  YYYYYY\n"
+                    + "   YOOOOOOY                                  YOOOOOOY                                YOOOOOOY\n"
+                    + "  YOOOOOOOOY                                YOOOOOOOOY                              YOOOOOOOOY\n"
+                    + " YOOOOOOOOOOY                              YOOOOOOOOOOY                            YOOOOOOOOOOY\n"
+                    + "YOOOOOOOOOOOOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYOOOOOOOOOOOOYYYYYYYYYYYYYYYYYYYYYYYYYYYYOOOOOOOOOOOOYYYYY\n"
                     + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n"
                     + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n"
                     + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
@@ -32,6 +34,10 @@ public class Ground extends GameObject {
         size = 10;
         width = (int) (3 * size);
         height = (int) (9 * size);
+        Color color1 = new Color(44, 29, 87);
+        Color color2 = new Color(61, 47, 107);
+        this.gameView.setColorForBlockImage('O', color1);
+        this.gameView.setColorForBlockImage('Y', color2);
     }
 
     @Override
