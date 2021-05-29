@@ -1,11 +1,13 @@
 package de.thdeg.missilecommand.graphics.base;
 
+import java.util.Objects;
+
 /**
  * This class is used to set and change the position of all the objects in a game
  *
  * @author Olha Solodovnyk
  */
-public class Position {
+public class Position implements Cloneable{
     /**
      * x coordinate of the object
      */
@@ -16,10 +18,9 @@ public class Position {
     public double y;
 
     /**
-     * This constructor is used for creating a new position with coordinates
+     * Creates a position on (x, y)
      *
      * @param x for the x coordinate of the object
-     *          and
      * @param y for the y coordinate of the object
      */
     public Position(double x, double y) {
@@ -28,7 +29,7 @@ public class Position {
     }
 
     /**
-     * Another constructor without parameters for the position (0, 0)
+     * Creates a position on (0, 0)
      */
     public Position() {
         this(0, 0);
@@ -115,5 +116,27 @@ public class Position {
         return "Position (" + (int) Math.round(x) + ", " + (int) Math.round(y) + ")";
     }
 
+    @Override
+    public Position clone(){
+        Position clone = null;
+        try {
+            clone = (Position) super.clone();
+        } catch (CloneNotSupportedException ignored) {
+        }
+        return clone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return  true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Position position = (Position) o;
+        return x == position.x && y == position.y;
+    }
+
+    @Override
+    public int hashCode() {return Objects.hash(x, y);}
 
 }

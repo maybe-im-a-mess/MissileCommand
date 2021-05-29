@@ -3,6 +3,9 @@ package de.thdeg.missilecommand.graphics.staticobjects;
 import de.thdeg.missilecommand.gameview.GameView;
 import de.thdeg.missilecommand.graphics.base.GameObject;
 
+/**
+ * A new object Background is added.
+ */
 public class Background extends GameObject {
 
     /**

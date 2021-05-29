@@ -1,8 +1,8 @@
 package de.thdeg.missilecommand.graphics.staticobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
+import de.thdeg.missilecommand.graphics.base.CollidableGameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
-import de.thdeg.missilecommand.graphics.base.GameObject;
 
 import java.awt.*;
 
@@ -11,7 +11,7 @@ import java.awt.*;
  *
  * @author Olha Solodovnyk
  */
-public class City extends GameObject {
+public class City extends CollidableGameObject {
 
     private final static String CITY =
             "             G\n"
@@ -34,6 +34,8 @@ public class City extends GameObject {
 
     /**
      * A new object "City" is created
+     *
+     * @param gameView Window to show the GameObject on.
      */
     public City(GameView gameView) {
         super(gameView);
@@ -53,6 +55,8 @@ public class City extends GameObject {
         Color color2 = new Color(133, 81, 130);
         this.gameView.setColorForBlockImage('g', color1);
         this.gameView.setColorForBlockImage('G', color2);
+        this.hitBox.width = width;
+        this.hitBox.height = height;
     }
 
 
@@ -63,14 +67,6 @@ public class City extends GameObject {
         return alive;
     }
 
-    private double getHealth() {
-        return health;
-    }
-
-    private boolean isAlive() {
-        return alive;
-    }
-
     @Override
     public Position getPosition() {
         return position;
@@ -78,6 +74,17 @@ public class City extends GameObject {
 
     @Override
     public void updateStatus() {
+    }
+
+    @Override
+    protected void updateHitBoxPosition() {
+        hitBox.x = (int) position.x;
+        hitBox.y = (int) position.y;
+    }
+
+    @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+
     }
 
     @Override

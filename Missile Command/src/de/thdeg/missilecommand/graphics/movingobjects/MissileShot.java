@@ -1,11 +1,12 @@
 package de.thdeg.missilecommand.graphics.movingobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
+import de.thdeg.missilecommand.graphics.base.CollidableGameObject;
 import de.thdeg.missilecommand.graphics.base.MovingGameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
-import de.thdeg.missilecommand.graphics.base.Shot;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -21,22 +22,24 @@ public class MissileShot extends Shot implements MovingGameObject {
     private final Random random;
 
     /**
-     * A new object "Missile" is created
+     * Creates a shot of the missile
      *
-     * @param gameView Window to show the GameObject on.
+     * @param gameView             Window to show the GameObject on.
+     * @param objectsToCollideWith Game objects this game object can collide with.
      */
-    public MissileShot(GameView gameView) {
-        super(gameView);
+    public MissileShot(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
+        super(gameView, objectsToCollideWith);
         this.random = new Random();
-        this.position = new Position(random.nextInt(GameView.WIDTH - 50), 1);
+        this.position = new Position(100, 50);
         this.size = 1;
         this.damage = 10;
         this.speedInPixel = 1;
-        this.alive = true;
         this.rotation = 0;
-        this.width = (int) (3 *size);
+        this.width = (int) (3 * size);
         this.height = (int) (3 * size);
         this.objectID = "Missile" + position.x + position.y;
+        this.hitBox.width = width;
+        this.hitBox.height = height;
     }
 
 
@@ -50,31 +53,31 @@ public class MissileShot extends Shot implements MovingGameObject {
 
     @Override
     public void updateStatus() {
-        if(position.y > GameView.HEIGHT - 30) {
-            gamePlayManager.destroy(this);
+        if (gameView.timerExpired("Shoot", objectID)) {
+            gameView.setTimer("Shoot", objectID, 1000);
+            gamePlayManager.shootMissileShot(position);
         }
+        /*if (position.y > GameView.HEIGHT) {
+            gamePlayManager.destroy(this);
+        }*/
     }
 
-
-    //Splitting of the missile into parts
-    private void split() {
+    @Override
+    protected void updateHitBoxPosition() {
+        hitBox.x = (int) position.x;
+        hitBox.y = (int) position.y;
     }
 
-    private void disappear() {
+    @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+        gamePlayManager.destroy(this);
     }
 
     /**
-     * Draws the defender to the canvas
+     * Draws the shoot to the canvas
      */
     @Override
     public void addToCanvas() {
-        gameView.addRectangleToCanvas(position.x, position.y, width, height, 0, true, Color.WHITE);
+        gameView.addRectangleToCanvas(position.x, position.y, width, height, 2, true, Color.WHITE);
     }
-
-    @Override
-    public String toString() {
-        return "Missile: " + position;
-    }
-
-
 }

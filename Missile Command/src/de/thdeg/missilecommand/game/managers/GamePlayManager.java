@@ -1,10 +1,11 @@
 package de.thdeg.missilecommand.game.managers;
 
 import de.thdeg.missilecommand.gameview.GameView;
+import de.thdeg.missilecommand.graphics.base.CollidableGameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
-import de.thdeg.missilecommand.graphics.base.Shot;
 import de.thdeg.missilecommand.graphics.movingobjects.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -55,7 +56,11 @@ public class GamePlayManager {
      * @param startPosition The position to spawn the shot from.
      */
     public void shootCrossShot(Position startPosition) {
-        CrossShot crossShot = new CrossShot(gameView);
+        ArrayList<CollidableGameObject> collidableGameObjects = new ArrayList<>();
+        collidableGameObjects.addAll(gameObjectManager.getMissileShot());
+        collidableGameObjects.addAll(gameObjectManager.getPlaneShot());
+        collidableGameObjects.addAll(gameObjectManager.getPlane());
+        CrossShot crossShot = new CrossShot(gameView, collidableGameObjects);
         Cross cross = gameObjectManager.getCross();
 
         double posX = 0;
@@ -89,7 +94,9 @@ public class GamePlayManager {
      * @param startPosition The position to spawn the shot from.
      */
     public void shootPlaneShot(Position startPosition) {
-        PlaneShot planeShot = new PlaneShot(gameView);
+        ArrayList<CollidableGameObject> collidableGameObjects = new ArrayList<>();
+        collidableGameObjects.add(gameObjectManager.getCity());
+        PlaneShot planeShot = new PlaneShot(gameView, collidableGameObjects);
         planeShot.getPosition().x = startPosition.x;
         planeShot.getPosition().y = startPosition.y;
         planeShot.setGamePlayManager(this);
@@ -102,7 +109,9 @@ public class GamePlayManager {
      * @param startPosition The position to spawn the shot from.
      */
     public void shootMissileShot(Position startPosition) {
-        MissileShot missileShot = new MissileShot(gameView);
+        ArrayList<CollidableGameObject> collidableGameObjects = new ArrayList<>();
+        collidableGameObjects.add(gameObjectManager.getCity());
+        MissileShot missileShot = new MissileShot(gameView, collidableGameObjects);
         missileShot.getPosition().x = startPosition.x;
         missileShot.getPosition().y = startPosition.y;
         missileShot.setGamePlayManager(this);
@@ -117,11 +126,20 @@ public class GamePlayManager {
     public void destroy(Shot shot) {
         if (shot.getClass() == CrossShot.class) {
             gameObjectManager.getCrossShot().remove(shot);
-        } else if (shot.getClass() == PlaneShot.class) {
-            gameObjectManager.getPlaneShot().remove(shot);
         } else if (shot.getClass() == MissileShot.class) {
             gameObjectManager.getMissileShot().remove(shot);
+        } else if (shot.getClass() == PlaneShot.class) {
+            gameObjectManager.getPlaneShot().remove(shot);
         }
+    }
+
+    /**
+     * Removes an Plane from the list of game objects, so it will be not be displayed on the window anymore.
+     *
+     * @param plane Object to be removed from the window.
+     */
+    public void destroy(Plane plane) {
+        gameObjectManager.getPlane().remove(plane);
     }
 
     /**

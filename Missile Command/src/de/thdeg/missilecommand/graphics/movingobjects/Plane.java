@@ -1,10 +1,11 @@
 package de.thdeg.missilecommand.graphics.movingobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
-import de.thdeg.missilecommand.graphics.base.GameObject;
+import de.thdeg.missilecommand.graphics.base.CollidableGameObject;
 import de.thdeg.missilecommand.graphics.base.MovingGameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Random;
  *
  * @author Olha Solodovnyk
  */
-public class Plane extends GameObject implements MovingGameObject {
+public class Plane extends CollidableGameObject implements MovingGameObject {
 
     private final static String PLANE =
             "RR   RRR\n"
@@ -50,6 +51,8 @@ public class Plane extends GameObject implements MovingGameObject {
         this.speedInPixel = 1;
         this.alive = true;
         this.rotation = 0;
+        this.hitBox.width = width;
+        this.hitBox.height = height;
     }
 
 
@@ -82,27 +85,50 @@ public class Plane extends GameObject implements MovingGameObject {
     }
 
 
-    private void shoot() {
-        shooting = true;
-    }
-
-    private void disappear() {
-    }
-
     /**
-     * Updates status of the object. Is used for shooting
+     * Updates status of the plane. Is used for shooting
      */
     @Override
     public void updateStatus() {
         if (gameView.timerExpired("Shoot", objectID)) {
-            gameView.setTimer("Shoot", objectID, 5000);
+            gameView.setTimer("Shoot", objectID, 3000);
             gamePlayManager.shootPlaneShot(position);
         }
     }
 
     @Override
+    protected void updateHitBoxPosition() {
+        hitBox.x = (int) position.x;
+        hitBox.y = (int) position.y;
+    }
+
+    @Override
+    public void reactToCollision(CollidableGameObject otherObject) {
+        gamePlayManager.destroy(this);
+    }
+
+    @Override
     public String toString() {
         return "Plane: " + position;
+    }
+
+    @Override
+    public Plane clone() throws CloneNotSupportedException {
+        return (Plane) super.clone();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Plane plane = (Plane) o;
+        return flyFromLeftToRight == plane.flyFromLeftToRight;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), flyFromLeftToRight);
     }
 }
 

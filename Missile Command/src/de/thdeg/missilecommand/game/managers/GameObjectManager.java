@@ -101,4 +101,8 @@ class GameObjectManager {
     LinkedList<PlaneShot> getPlaneShot() {
         return planeShots;
     }
+
+    City getCity() {
+        return city;
+    }
 }
