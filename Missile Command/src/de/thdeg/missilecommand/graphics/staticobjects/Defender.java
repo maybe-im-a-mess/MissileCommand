@@ -47,9 +47,4 @@ public class Defender extends GameObject {
     public void addToCanvas() {
         gameView.addBlockImageToCanvas(DEFENDER, position.x, position.y, size, rotation);
     }
-
-    @Override
-    public String toString() {
-        return "Defender: " + position;
-    }
 }

@@ -14,10 +14,10 @@ class GameObjectManager {
     private final LinkedList<MissileShot> missileShots;
     private final LinkedList<Plane> planes;
     private final LinkedList<PlaneShot> planeShots;
+    private final LinkedList<City> cities;
 
     private final Background background;
     private final Ground ground;
-    private final City city;
     private final Defender defender;
     private final ScorePanel scorePanel;
     private final Cross cross;
@@ -31,10 +31,10 @@ class GameObjectManager {
         this.missileShots = new LinkedList<>();
         this.planes = new LinkedList<>();
         this.planeShots = new LinkedList<>();
+        this.cities = new LinkedList<>();
 
         this.background = new Background(gameView);
         this.ground = new Ground(gameView);
-        this.city = new City(gameView);
         this.defender = new Defender(gameView);
         this.scorePanel = new ScorePanel(gameView);
         this.cross = new Cross(gameView);
@@ -47,10 +47,10 @@ class GameObjectManager {
 
         gameObjects.add(background);
         gameObjects.add(ground);
-        gameObjects.add(city);
         gameObjects.add(defender);
         gameObjects.add(scorePanel);
         gameObjects.add(cross);
+        gameObjects.addAll(cities);
         gameObjects.addAll(planes);
         gameObjects.addAll(crossShots);
         gameObjects.addAll(missileShots);
@@ -102,7 +102,7 @@ class GameObjectManager {
         return planeShots;
     }
 
-    City getCity() {
-        return city;
+    LinkedList<City> getCity() {
+        return cities;
     }
 }

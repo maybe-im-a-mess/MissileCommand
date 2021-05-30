@@ -28,10 +28,7 @@ public class Plane extends CollidableGameObject implements MovingGameObject {
                     + "    RWWR\n"
                     + "   RWWR\n"
                     + "   RRR";
-    private final double damage;
-    private boolean alive;
     private boolean flyFromLeftToRight;
-    private boolean shooting;
     private Random random;
     private String objectID;
 
@@ -47,9 +44,7 @@ public class Plane extends CollidableGameObject implements MovingGameObject {
         this.size = 2;
         this.width = (int) (17 * size);
         this.height = (int) (12 * size);
-        this.damage = 20;
         this.speedInPixel = 1;
-        this.alive = true;
         this.rotation = 0;
         this.hitBox.width = width;
         this.hitBox.height = height;
@@ -91,7 +86,7 @@ public class Plane extends CollidableGameObject implements MovingGameObject {
     @Override
     public void updateStatus() {
         if (gameView.timerExpired("Shoot", objectID)) {
-            gameView.setTimer("Shoot", objectID, 3000);
+            gameView.setTimer("Shoot", objectID, 5000);
             gamePlayManager.shootPlaneShot(position);
         }
     }
@@ -108,12 +103,7 @@ public class Plane extends CollidableGameObject implements MovingGameObject {
     }
 
     @Override
-    public String toString() {
-        return "Plane: " + position;
-    }
-
-    @Override
-    public Plane clone() throws CloneNotSupportedException {
+    public Plane clone() {
         return (Plane) super.clone();
     }
 
