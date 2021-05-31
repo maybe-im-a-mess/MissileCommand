@@ -33,6 +33,8 @@ public class City extends CollidableGameObject {
      * A new object "City" is created
      *
      * @param gameView Window to show the GameObject on.
+     * @param x Coordinate x of the City
+     * @param y Coordinate y of the City
      */
     public City(GameView gameView, int x, int y) {
         super(gameView);
@@ -71,6 +73,7 @@ public class City extends CollidableGameObject {
     @Override
     public void addToCanvas() {
         gameView.addBlockImageToCanvas(CITY, position.x, position.y, size, rotation);
+        gameView.addRectangleToCanvas(hitBox.x, hitBox.y, hitBox.width, hitBox.height, 2, false, Color.RED);
     }
 
 }

@@ -52,7 +52,7 @@ public class GamePlayManager {
         }
     }
 
-    public void createCities() {
+    void createCities() {
         LinkedList<City> cities = gameObjectManager.getCity();
         cities.add(new City(gameView, 155, 480));
         cities.add(new City(gameView, 250, 469));

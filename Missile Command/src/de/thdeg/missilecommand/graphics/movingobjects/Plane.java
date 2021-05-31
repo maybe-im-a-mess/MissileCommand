@@ -14,7 +14,7 @@ import java.util.Random;
  * @author Olha Solodovnyk
  */
 public class Plane extends CollidableGameObject implements MovingGameObject {
-
+    private enum Status {STANDARD, EXPLODING, EXPLODED}
     private final static String PLANE =
             "RR   RRR\n"
                     + "RWR  RWWR\n"
@@ -31,6 +31,7 @@ public class Plane extends CollidableGameObject implements MovingGameObject {
     private boolean flyFromLeftToRight;
     private Random random;
     private String objectID;
+    private Status status;
 
 
     /**
@@ -38,6 +39,7 @@ public class Plane extends CollidableGameObject implements MovingGameObject {
      */
     public Plane(GameView gameView) {
         super(gameView);
+        this.status = Status.STANDARD;
         this.random = new Random();
         this.position = new Position(1, random.nextInt(GameView.HEIGHT / 4));
         objectID = "plane" + position.x + position.y;
