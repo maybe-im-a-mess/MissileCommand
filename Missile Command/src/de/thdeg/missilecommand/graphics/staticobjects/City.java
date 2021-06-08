@@ -73,7 +73,6 @@ public class City extends CollidableGameObject {
     @Override
     public void addToCanvas() {
         gameView.addBlockImageToCanvas(CITY, position.x, position.y, size, rotation);
-        gameView.addRectangleToCanvas(hitBox.x, hitBox.y, hitBox.width, hitBox.height, 2, false, Color.RED);
     }
 
 }

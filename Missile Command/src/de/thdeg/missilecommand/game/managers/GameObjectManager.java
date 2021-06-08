@@ -7,8 +7,10 @@ import de.thdeg.missilecommand.graphics.staticobjects.*;
 
 import java.util.LinkedList;
 
-
-class GameObjectManager {
+/**
+ * Manages the objects of the game
+ */
+public class GameObjectManager {
     private final LinkedList<GameObject> gameObjects;
     private final LinkedList<CrossShot> crossShots;
     private final LinkedList<MissileShot> missileShots;
@@ -21,9 +23,9 @@ class GameObjectManager {
     private final Defender defender;
     private final ScorePanel scorePanel;
     private final Cross cross;
-    private final StartLevelPanel startLevelPanel;
-    private final EndLevelPanel endLevelPanel;
 
+    private final RandomBall randomBall;
+    private final FollowerBall followerBall;
 
     GameObjectManager(GameView gameView) {
         this.gameObjects = new LinkedList<>();
@@ -38,8 +40,9 @@ class GameObjectManager {
         this.defender = new Defender(gameView);
         this.scorePanel = new ScorePanel(gameView);
         this.cross = new Cross(gameView);
-        this.startLevelPanel = new StartLevelPanel(gameView);
-        this.endLevelPanel = new EndLevelPanel(gameView);
+
+        this.randomBall = new RandomBall(gameView);
+        this.followerBall = new FollowerBall(gameView, randomBall);
     }
 
     void updateGameObjects() {
@@ -55,8 +58,9 @@ class GameObjectManager {
         gameObjects.addAll(crossShots);
         gameObjects.addAll(missileShots);
         gameObjects.addAll(planeShots);
-        //gameObjects.add(endLevelPanel);
-        //gameObjects.add(startLevelPanel);
+
+        gameObjects.add(randomBall);
+        gameObjects.add(followerBall);
 
         for (GameObject gameObject : gameObjects) {
             gameObject.update();

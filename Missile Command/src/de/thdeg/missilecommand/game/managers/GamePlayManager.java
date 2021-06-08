@@ -54,12 +54,14 @@ public class GamePlayManager {
 
     void createCities() {
         LinkedList<City> cities = gameObjectManager.getCity();
-        cities.add(new City(gameView, 155, 480));
-        cities.add(new City(gameView, 250, 469));
-        cities.add(new City(gameView, 350, 475));
-        cities.add(new City(gameView, 560, 475));
-        cities.add(new City(gameView, 660, 480));
-        cities.add(new City(gameView, 760, 469));
+        if (cities.isEmpty() ) {
+            cities.add(new City(gameView, 155, 480));
+            cities.add(new City(gameView, 250, 469));
+            cities.add(new City(gameView, 350, 475));
+            cities.add(new City(gameView, 560, 475));
+            cities.add(new City(gameView, 660, 480));
+            cities.add(new City(gameView, 760, 469));
+        }
     }
 
     /**
@@ -92,9 +94,7 @@ public class GamePlayManager {
         } else if (result == dist3) {
             crossShot.getPosition().x = GameView.WIDTH - 70;
         }
-
         crossShot.getPosition().y = GameView.HEIGHT - 20;
-
 
         crossShot.setGamePlayManager(this);
         gameObjectManager.getCrossShot().add(crossShot);
