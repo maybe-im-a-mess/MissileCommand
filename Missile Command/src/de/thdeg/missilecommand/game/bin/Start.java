@@ -16,6 +16,8 @@ public class Start {
         GameLoopManager gameLoopManager = new GameLoopManager();
         gameLoopManager.startGame();
 
+
+        System.out.println();
     }
 
 }

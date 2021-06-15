@@ -7,7 +7,7 @@ import java.util.Objects;
  *
  * @author Olha Solodovnyk
  */
-public class Position implements Cloneable{
+public class Position implements Cloneable, Comparable<Position> {
     /**
      * x coordinate of the object
      */
@@ -149,4 +149,10 @@ public class Position implements Cloneable{
     @Override
     public int hashCode() {return Objects.hash(x, y);}
 
+
+    @Override
+    public int compareTo(Position obj) {
+        Position position = new Position(0, 0);
+        return (int) Math.signum(distance(position) - distance(obj));
+    }
 }

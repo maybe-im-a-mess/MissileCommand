@@ -1,8 +1,8 @@
 package de.thdeg.missilecommand.graphics.staticobjects;
 
 import de.thdeg.missilecommand.gameview.GameView;
+import de.thdeg.missilecommand.graphics.base.GameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
-import de.thdeg.missilecommand.graphics.base.Panels;
 
 import java.awt.*;
 
@@ -11,51 +11,39 @@ import java.awt.*;
  *
  * @author Olha Solodovnyk
  */
-public class ScorePanel extends Panels {
-    private int score;
-    private int highscore;
+public class ScorePanel extends GameObject {
+    private String scoreString;
 
 
     /**
-     * Creates a new score
+     * Creates a new panel to show the current score of the player.
+     *
+     * @param gameView GameView to show the score on.
      */
     public ScorePanel(GameView gameView) {
         super(gameView);
         this.position = new Position(GameView.WIDTH / 2, 1);
         this.size = 20;
-        this.width = (int) (17 * size);
-        this.height = (int) (12 * size);
-        this.rotation = 0;
-        this.disappear = false;
-        this.score = 0;
-        this.highscore = 0;
+        this.scoreString = " ";
     }
 
-
-    /**
-     * Sets the current score.
-     *
-     * @param score The current score.
-     */
-    public void setScore(int score) {
-        this.score = score;
+    @Override
+    public void updateStatus() {
     }
 
-    /**
-     * Sets the current highscore.
-     *
-     * @param highscore The highscore of the player.
-     */
-    public void setHighscore(int highscore) {
-        this.highscore = highscore;
-    }
-
-    /**
-     * Draws the score to the canvas
-     */
     @Override
     public void addToCanvas() {
-        gameView.addTextToCanvas(String.valueOf(score), position.x, position.y, size, Color.white, rotation);
+        gameView.addTextToCanvas(scoreString, position.x, position.y, size, Color.white, rotation);
+    }
+
+    /**
+     * Sets the score to be displayed.
+     *
+     * @param score Score to be displayed.
+     */
+    public void setScore(int score) {
+        scoreString = String.valueOf(score);
+        scoreString = " ".repeat(6 - scoreString.length()) + score;
     }
 
 }

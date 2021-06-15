@@ -102,6 +102,7 @@ public class Plane extends CollidableGameObject implements MovingGameObject {
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
         gamePlayManager.destroy(this);
+        int number = gameView.playSound("explode.wav", false);
     }
 
     @Override

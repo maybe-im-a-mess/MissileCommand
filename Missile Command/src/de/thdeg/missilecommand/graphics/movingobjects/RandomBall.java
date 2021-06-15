@@ -15,25 +15,23 @@ import java.util.Random;
 public class RandomBall extends GameObject implements MovingGameObject {
     private Position targetPosition;
     private final Random random;
-    private int movesCounter;
+    private int currentPosition;
     private final MovementPatterns movementPatterns;
-    private ArrayList<Position> square;
-    private ArrayList<Position> zigZag;
+    private ArrayList<Position> movementPattern;
 
     /**
-     * Creates a new random ball
+     * Creates the GameObject with the GameView to be displayed on.
      * @param gameView gameView to show the ball on
      */
     public RandomBall(GameView gameView) {
         super(gameView);
-        this.targetPosition = new Position();
+        this.movementPatterns = new MovementPatterns();
+        this.movementPattern = movementPatterns.getRandomPattern();
+        this.targetPosition = movementPattern.get(0);
         this.random = new Random();
         this.size = 50;
         this.speedInPixel = 4;
-        this.movesCounter = 0;
-        this.movementPatterns = new MovementPatterns();
-        this.square = movementPatterns.getPattern("square");
-        this.zigZag = movementPatterns.getPattern("zigzag");
+        this.currentPosition = 0;
     }
 
     @Override
@@ -51,22 +49,15 @@ public class RandomBall extends GameObject implements MovingGameObject {
      * Set position to aim at
      */
     public void setTargetPosition() {
-        int maxMovements = zigZag.size();
-        if (movesCounter >= maxMovements) {
-            movesCounter = 0;
-            setMovementToARandomPattern();
+        if (currentPosition < movementPattern.size() - 1) {
+            currentPosition++;
+        } else {
+            currentPosition = 0;
+            movementPattern = movementPatterns.getRandomPattern();
         }
-        this.targetPosition.x = zigZag.get(movesCounter).x;
-        this.targetPosition.y = zigZag.get(movesCounter).y;
-        movesCounter++;
+        targetPosition = movementPattern.get(currentPosition);
     }
 
-    /**
-     * Setting a pattern to a random one.
-     */
-    public void setMovementToARandomPattern() {
-        this.zigZag = movementPatterns.getRandomPattern();
-    }
 
     @Override
     protected void updateStatus() {

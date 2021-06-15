@@ -13,7 +13,7 @@ import java.util.LinkedList;
 public class GameObjectManager {
     private final LinkedList<GameObject> gameObjects;
     private final LinkedList<CrossShot> crossShots;
-    private final LinkedList<MissileShot> missileShots;
+    private final LinkedList<Missile> missiles;
     private final LinkedList<Plane> planes;
     private final LinkedList<PlaneShot> planeShots;
     private final LinkedList<City> cities;
@@ -25,12 +25,11 @@ public class GameObjectManager {
     private final Cross cross;
 
     private final RandomBall randomBall;
-    private final FollowerBall followerBall;
 
     GameObjectManager(GameView gameView) {
         this.gameObjects = new LinkedList<>();
         this.crossShots = new LinkedList<>();
-        this.missileShots = new LinkedList<>();
+        this.missiles = new LinkedList<>();
         this.planes = new LinkedList<>();
         this.planeShots = new LinkedList<>();
         this.cities = new LinkedList<>();
@@ -42,7 +41,6 @@ public class GameObjectManager {
         this.cross = new Cross(gameView);
 
         this.randomBall = new RandomBall(gameView);
-        this.followerBall = new FollowerBall(gameView, randomBall);
     }
 
     void updateGameObjects() {
@@ -56,11 +54,10 @@ public class GameObjectManager {
         gameObjects.addAll(cities);
         gameObjects.addAll(planes);
         gameObjects.addAll(crossShots);
-        gameObjects.addAll(missileShots);
+        gameObjects.addAll(missiles);
         gameObjects.addAll(planeShots);
 
         gameObjects.add(randomBall);
-        gameObjects.add(followerBall);
 
         for (GameObject gameObject : gameObjects) {
             gameObject.update();
@@ -94,8 +91,8 @@ public class GameObjectManager {
         return crossShots;
     }
 
-    LinkedList<MissileShot> getMissileShot() {
-        return missileShots;
+    LinkedList<Missile> getMissileShot() {
+        return missiles;
     }
 
     LinkedList<Plane> getPlane() {
@@ -109,4 +106,6 @@ public class GameObjectManager {
     LinkedList<City> getCity() {
         return cities;
     }
+
+    ScorePanel getScorePanel() {return scorePanel;}
 }

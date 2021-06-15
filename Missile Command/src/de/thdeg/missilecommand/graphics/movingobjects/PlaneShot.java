@@ -14,8 +14,6 @@ import java.util.ArrayList;
  * @author Olha Solodovnyk
  */
 public class PlaneShot extends Shot implements MovingGameObject {
-
-
     /**
      * Creates a new shot
      *
@@ -42,6 +40,7 @@ public class PlaneShot extends Shot implements MovingGameObject {
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
         gamePlayManager.destroy(this);
+        int number = gameView.playSound("explode.wav", false);
     }
 
 

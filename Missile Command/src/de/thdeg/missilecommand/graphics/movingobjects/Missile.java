@@ -6,7 +6,6 @@ import de.thdeg.missilecommand.graphics.base.MovingGameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -14,25 +13,21 @@ import java.util.Random;
  *
  * @author Olha Solodovnyk
  */
-public class MissileShot extends Shot implements MovingGameObject {
-
-    private final double damage;
-    private boolean alive;
+public class Missile extends CollidableGameObject implements MovingGameObject{
     private String objectID;
     private final Random random;
 
     /**
-     * Creates a shot of the missile
+     * Creates a missile.
      *
      * @param gameView             Window to show the GameObject on.
-     * @param objectsToCollideWith Game objects this game object can collide with.
+     *
      */
-    public MissileShot(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
-        super(gameView, objectsToCollideWith);
+    public Missile(GameView gameView) {
+        super(gameView);
         this.random = new Random();
         this.position = new Position(100, 50);
         this.size = 1;
-        this.damage = 10;
         this.speedInPixel = 1;
         this.rotation = 0;
         this.width = (int) (3 * size);
@@ -40,6 +35,11 @@ public class MissileShot extends Shot implements MovingGameObject {
         this.objectID = "Missile" + position.x + position.y;
         this.hitBox.width = width;
         this.hitBox.height = height;
+    }
+
+    @Override
+    protected void updateStatus() {
+
     }
 
 
@@ -51,7 +51,7 @@ public class MissileShot extends Shot implements MovingGameObject {
         position.down(speedInPixel);
     }
 
-    @Override
+    /*@Override
     public void updateStatus() {
         if (gameView.timerExpired("Shoot", objectID)) {
             gameView.setTimer("Shoot", objectID, 1000);
@@ -59,8 +59,8 @@ public class MissileShot extends Shot implements MovingGameObject {
         }
         /*if (position.y > GameView.HEIGHT) {
             gamePlayManager.destroy(this);
-        }*/
-    }
+        }
+    }*/
 
     @Override
     protected void updateHitBoxPosition() {
@@ -71,6 +71,7 @@ public class MissileShot extends Shot implements MovingGameObject {
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
         gamePlayManager.destroy(this);
+        int number = gameView.playSound("explode.wav", false);
     }
 
     /**
