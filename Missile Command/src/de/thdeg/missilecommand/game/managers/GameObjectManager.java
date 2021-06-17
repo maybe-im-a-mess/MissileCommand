@@ -24,7 +24,6 @@ public class GameObjectManager {
     private final ScorePanel scorePanel;
     private final Cross cross;
 
-    private final RandomBall randomBall;
 
     GameObjectManager(GameView gameView) {
         this.gameObjects = new LinkedList<>();
@@ -40,7 +39,6 @@ public class GameObjectManager {
         this.scorePanel = new ScorePanel(gameView);
         this.cross = new Cross(gameView);
 
-        this.randomBall = new RandomBall(gameView);
     }
 
     void updateGameObjects() {
@@ -57,7 +55,6 @@ public class GameObjectManager {
         gameObjects.addAll(missiles);
         gameObjects.addAll(planeShots);
 
-        gameObjects.add(randomBall);
 
         for (GameObject gameObject : gameObjects) {
             gameObject.update();
