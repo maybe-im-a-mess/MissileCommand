@@ -7,9 +7,7 @@ import de.thdeg.missilecommand.graphics.base.Position;
 import java.awt.*;
 
 /**
- * Represents ground in the game
- *
- * @author Olha Solodovnyk
+ * Represents ground in the game.
  */
 public class Ground extends GameObject {
 
@@ -26,7 +24,7 @@ public class Ground extends GameObject {
 
 
     /**
-     * A new object "Ground" is created
+     * Ground is created.
      */
     public Ground(GameView gameView) {
         super(gameView);
@@ -41,10 +39,11 @@ public class Ground extends GameObject {
     }
 
     @Override
-    public void updateStatus(){}
+    public void updateStatus() {
+    }
 
     /**
-     * Draws the ground to the canvas
+     * Draws the ground to the canvas.
      */
     @Override
     public void addToCanvas() {

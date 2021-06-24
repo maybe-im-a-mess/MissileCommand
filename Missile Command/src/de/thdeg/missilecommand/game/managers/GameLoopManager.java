@@ -3,7 +3,7 @@ package de.thdeg.missilecommand.game.managers;
 import de.thdeg.missilecommand.gameview.GameView;
 
 /**
- * This class manages the main game loop of the game
+ * Manages the main loop of the game.
  */
 public class GameLoopManager {
     private final GameView gameView;
@@ -12,7 +12,7 @@ public class GameLoopManager {
     private final GamePlayManager gamePlayManager;
 
     /**
-     * Creates the main loop
+     * Creates the main loop.
      */
     public GameLoopManager() {
         this.gameView = new GameView();
@@ -25,7 +25,7 @@ public class GameLoopManager {
     }
 
     /**
-     * Starts the main loop of the game
+     * Starts the main loop of the game.
      */
     public void startGame() {
         while (true) {

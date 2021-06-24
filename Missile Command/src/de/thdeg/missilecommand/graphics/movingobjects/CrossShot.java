@@ -9,42 +9,53 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Represents shots of the main player
- *
- * @author Olha Solodovnyk
+ * Represents shots of the main player.
  */
 public class CrossShot extends Shot implements MovingGameObject {
 
+    private final Position targetPosition;
+
     /**
-     * Creates a new shot
+     * Creates a new shot.
      *
-     * @param gameView Window to show the GameObject on.
+     * @param gameView             Window to show the GameObject on.
      * @param objectsToCollideWith Game objects this game object can collide with.
+     * @param followMe             Game object this game object can follow.
      */
-    public CrossShot(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
+    public CrossShot(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith, Cross followMe) {
         super(gameView, objectsToCollideWith);
         this.position = new Position(GameView.WIDTH / 2d, GameView.HEIGHT);
         this.size = 1;
         this.width = (int) (3 * size);
         this.height = (int) (3 * size);
         this.rotation = 0;
-        this.speedInPixel = 3;
-        this.hitBox.width = width;
-        this.hitBox.height = height;
+        this.speedInPixel = 5;
+        this.hitBox.width = width * 4;
+        this.hitBox.height = height * 4;
+        this.targetPosition = followMe.getPosition().clone();
     }
 
     @Override
     public void updatePosition() {
-        position.up(speedInPixel);
+        double distance = position.distance(targetPosition);
+        position.right((targetPosition.x - position.x) / distance * speedInPixel);
+        position.down((targetPosition.y - position.y) / distance * speedInPixel);
     }
 
     @Override
     protected void updateStatus() {
         destroyShotIfItHasLeftTheScreen();
+        destroyShotIfItHasReachedDestination();
     }
 
     private void destroyShotIfItHasLeftTheScreen() {
         if (position.y < 0) {
+            gamePlayManager.destroy(this);
+        }
+    }
+
+    private void destroyShotIfItHasReachedDestination() {
+        if (position.y < targetPosition.y) {
             gamePlayManager.destroy(this);
         }
     }
@@ -64,6 +75,4 @@ public class CrossShot extends Shot implements MovingGameObject {
     public void addToCanvas() {
         gameView.addRectangleToCanvas(position.x, position.y, width, height, 0, true, Color.WHITE);
     }
-
-
 }

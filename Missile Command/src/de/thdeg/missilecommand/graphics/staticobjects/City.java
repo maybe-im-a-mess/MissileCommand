@@ -7,11 +7,9 @@ import de.thdeg.missilecommand.graphics.base.Position;
 import java.awt.*;
 
 /**
- * Represents a new city
- *
- * @author Olha Solodovnyk
+ * Represents a city.
  */
-public class City extends CollidableGameObject {
+public class City extends CollidableGameObject{
 
     private final static String CITY =
             "             G\n"
@@ -30,11 +28,11 @@ public class City extends CollidableGameObject {
                     + " ggggggGGGGGGGgggggG";
 
     /**
-     * A new object "City" is created
+     * Creates a new city.
      *
      * @param gameView Window to show the GameObject on.
-     * @param x Coordinate x of the City
-     * @param y Coordinate y of the City
+     * @param x        Coordinate x of the City
+     * @param y        Coordinate y of the City
      */
     public City(GameView gameView, int x, int y) {
         super(gameView);
@@ -67,8 +65,9 @@ public class City extends CollidableGameObject {
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
+
         gamePlayManager.destroy(this);
-        int number = gameView.playSound("explode.wav", false);
+        gameView.playSound("explode.wav", false);
     }
 
     @Override

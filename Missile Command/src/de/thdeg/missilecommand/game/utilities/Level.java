@@ -26,10 +26,10 @@ public class Level {
     /**
      * Creates a level
      *
-     * @param name              Name of the level.
-     * @param background        Background of the level
-     * @param numberOfPlanes    Number of Planes in the level.
-     * @param numberOfMissiles  Number of Missiles in the level.
+     * @param name             Name of the level.
+     * @param background       Background of the level
+     * @param numberOfPlanes   Number of Planes in the level.
+     * @param numberOfMissiles Number of Missiles in the level.
      */
     public Level(String name, Background background, int numberOfPlanes, int numberOfMissiles) {
         this.name = name;

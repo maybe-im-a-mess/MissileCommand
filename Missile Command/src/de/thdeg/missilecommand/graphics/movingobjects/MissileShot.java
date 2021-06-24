@@ -9,25 +9,26 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Represents shots of the planes.
+ * Represents shots of the missiles.
  */
-public class PlaneShot extends Shot implements MovingGameObject {
+public class MissileShot extends Shot implements MovingGameObject {
+
     /**
      * Creates a new shot.
      *
      * @param gameView             Window to show the GameObject on.
      * @param objectsToCollideWith Game objects this game object can collide with.
      */
-    public PlaneShot(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
+    public MissileShot(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
         super(gameView, objectsToCollideWith);
-        this.position = new Position(100, 80);
+        this.position = new Position();
         this.size = 1;
         this.width = (int) (5 * size);
         this.height = (int) (5 * size);
         this.rotation = 0;
-        this.speedInPixel = 0.5;
-        this.hitBox.width = width * 2;
-        this.hitBox.height = height * 2;
+        this.speedInPixel = 0.1;
+        this.hitBox.width = width * 5;
+        this.hitBox.height = height * 5;
     }
 
     @Override
@@ -38,16 +39,16 @@ public class PlaneShot extends Shot implements MovingGameObject {
 
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
-        gamePlayManager.destroy(this);
         gameView.playSound("explode.wav", false);
+        gamePlayManager.destroy(this);
     }
-
 
     @Override
-    public void updatePosition() {
-        position.down(speedInPixel);
+    protected void updateStatus() {
+        if (position.y > GameView.HEIGHT) {
+            gamePlayManager.destroy(this);
+        }
     }
-
 
     @Override
     public void addToCanvas() {
@@ -55,9 +56,7 @@ public class PlaneShot extends Shot implements MovingGameObject {
     }
 
     @Override
-    public void updateStatus() {
-        if (position.y > GameView.HEIGHT) {
-            gamePlayManager.destroy(this);
-        }
+    public void updatePosition() {
+        position.down(speedInPixel);
     }
 }

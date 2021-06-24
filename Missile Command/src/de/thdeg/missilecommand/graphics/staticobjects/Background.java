@@ -4,7 +4,7 @@ import de.thdeg.missilecommand.gameview.GameView;
 import de.thdeg.missilecommand.graphics.base.GameObject;
 
 /**
- * A new object Background is added.
+ * Represents a background of the game.
  */
 public class Background extends GameObject {
 
@@ -24,10 +24,9 @@ public class Background extends GameObject {
 
     @Override
     protected void updateStatus() {
-        // No animations
     }
 
-    private void addBackgroundToCanvas(){
+    private void addBackgroundToCanvas() {
         gameView.addImageToCanvas("Background.png", 1, 1, 1.6, rotation);
     }
 }

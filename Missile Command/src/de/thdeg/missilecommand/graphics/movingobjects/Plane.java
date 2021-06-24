@@ -10,8 +10,6 @@ import java.util.Random;
 
 /**
  * Represents a new plane
- *
- * @author Olha Solodovnyk
  */
 public class Plane extends CollidableGameObject implements MovingGameObject {
     private enum Status {STANDARD, EXPLODING, EXPLODED}
@@ -29,24 +27,22 @@ public class Plane extends CollidableGameObject implements MovingGameObject {
                     + "   RWWR\n"
                     + "   RRR";
     private boolean flyFromLeftToRight;
-    private Random random;
-    private String objectID;
-    private Status status;
+    private final String objectID;
 
 
     /**
-     * A new object "Plane" is created
+     * Creates a new plane.
      */
     public Plane(GameView gameView) {
         super(gameView);
-        this.status = Status.STANDARD;
-        this.random = new Random();
+        Status status = Status.STANDARD;
+        Random random = new Random();
         this.position = new Position(1, random.nextInt(GameView.HEIGHT / 4));
         objectID = "plane" + position.x + position.y;
-        this.size = 2;
+        this.size = 1.5;
         this.width = (int) (17 * size);
         this.height = (int) (12 * size);
-        this.speedInPixel = 1;
+        this.speedInPixel = 0.5;
         this.rotation = 0;
         this.hitBox.width = width;
         this.hitBox.height = height;
@@ -54,41 +50,25 @@ public class Plane extends CollidableGameObject implements MovingGameObject {
 
 
     /**
-     * Draws the plane to the canvas
+     * Draws the plane to the canvas.
      */
     @Override
     public void addToCanvas() {
         gameView.addBlockImageToCanvas(PLANE, position.x, position.y, size, rotation);
     }
 
-    /**
-     * Updates the position of an object
-     */
+
     @Override
     public void updatePosition() {
         if (position.x + width <= GameView.WIDTH && rotation == 0) {
-            flyFromLeftToRight = true;
-        } else if (position.x + width <= width && rotation == 180) {
-            rotation = 0;
-        } else {
-            rotation = 180;
-            flyFromLeftToRight = false;
-        }
-        if (flyFromLeftToRight) {
             position.right(speedInPixel);
-        } else {
-            position.left(speedInPixel);
         }
     }
 
-
-    /**
-     * Updates status of the plane. Is used for shooting
-     */
     @Override
     public void updateStatus() {
         if (gameView.timerExpired("Shoot", objectID)) {
-            gameView.setTimer("Shoot", objectID, 5000);
+            gameView.setTimer("Shoot", objectID, 4000);
             gamePlayManager.shootPlaneShot(position);
         }
     }
@@ -102,7 +82,7 @@ public class Plane extends CollidableGameObject implements MovingGameObject {
     @Override
     public void reactToCollision(CollidableGameObject otherObject) {
         gamePlayManager.destroy(this);
-        int number = gameView.playSound("explode.wav", false);
+        gameView.playSound("explode.wav", false);
     }
 
     @Override

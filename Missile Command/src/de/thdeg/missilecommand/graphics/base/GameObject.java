@@ -6,9 +6,7 @@ import de.thdeg.missilecommand.gameview.GameView;
 import java.util.Objects;
 
 /**
- * Represents a new object
- *
- * @author Olha Solodovnyk
+ * Represents a new object.
  */
 public abstract class GameObject implements Cloneable {
 
@@ -22,11 +20,12 @@ public abstract class GameObject implements Cloneable {
     protected int height;
 
     /**
-     * Creates a new game object
+     * Creates a new game object.
      *
      * @param gameView Window to show the GameObject on.
      */
     public GameObject(GameView gameView) {
+        setGamePlayManager(gamePlayManager);
         this.gameView = gameView;
         this.position = new Position();
     }
@@ -42,7 +41,7 @@ public abstract class GameObject implements Cloneable {
     }
 
     /**
-     * Updates status of an object
+     * Updates the status of an object.
      */
     protected abstract void updateStatus();
 
@@ -52,7 +51,7 @@ public abstract class GameObject implements Cloneable {
     public abstract void addToCanvas();
 
     /**
-     * Sets the GamePlayManager, so the game object is able call game-play methods.
+     * Sets the GamePlayManager, so the game object is able to call game-play methods.
      */
     public void setGamePlayManager(GamePlayManager gamePlayManager) {
         this.gamePlayManager = gamePlayManager;
@@ -70,7 +69,7 @@ public abstract class GameObject implements Cloneable {
     }
 
     /**
-     * Shows the current position of an object
+     * Shows the current position of an object.
      *
      * @return the current position
      * Link to a class "Position" {@link Position}

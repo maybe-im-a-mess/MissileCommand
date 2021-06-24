@@ -9,37 +9,27 @@ import java.awt.*;
 import java.util.Random;
 
 /**
- * Represents a new missile
- *
- * @author Olha Solodovnyk
+ * Represents a new missile.
  */
-public class Missile extends CollidableGameObject implements MovingGameObject{
-    private String objectID;
-    private final Random random;
+public class Missile extends CollidableGameObject implements MovingGameObject {
+
+    private final String objectID;
+
 
     /**
-     * Creates a missile.
+     * Creates a new missile.
      *
-     * @param gameView             Window to show the GameObject on.
-     *
+     * @param gameView Window to show the GameObject on.
      */
     public Missile(GameView gameView) {
         super(gameView);
-        this.random = new Random();
-        this.position = new Position(100, 50);
+        Random random = new Random();
+        this.position = new Position(random.nextInt(GameView.WIDTH), 1);
         this.size = 1;
-        this.speedInPixel = 1;
         this.rotation = 0;
         this.width = (int) (3 * size);
         this.height = (int) (3 * size);
         this.objectID = "Missile" + position.x + position.y;
-        this.hitBox.width = width;
-        this.hitBox.height = height;
-    }
-
-    @Override
-    protected void updateStatus() {
-
     }
 
 
@@ -48,19 +38,16 @@ public class Missile extends CollidableGameObject implements MovingGameObject{
      */
     @Override
     public void updatePosition() {
-        position.down(speedInPixel);
     }
 
-    /*@Override
+    @Override
     public void updateStatus() {
         if (gameView.timerExpired("Shoot", objectID)) {
-            gameView.setTimer("Shoot", objectID, 1000);
+            gameView.setTimer("Shoot", objectID, 8000);
             gamePlayManager.shootMissileShot(position);
-        }
-        /*if (position.y > GameView.HEIGHT) {
             gamePlayManager.destroy(this);
         }
-    }*/
+    }
 
     @Override
     protected void updateHitBoxPosition() {
@@ -75,10 +62,10 @@ public class Missile extends CollidableGameObject implements MovingGameObject{
     }
 
     /**
-     * Draws the shoot to the canvas
+     * Draws the missile to the canvas.
      */
     @Override
     public void addToCanvas() {
-        gameView.addRectangleToCanvas(position.x, position.y, width, height, 2, true, Color.WHITE);
+        gameView.addRectangleToCanvas(position.x, position.y, width, height, 2, true, Color.RED);
     }
 }

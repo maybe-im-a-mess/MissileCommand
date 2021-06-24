@@ -3,9 +3,7 @@ package de.thdeg.missilecommand.graphics.base;
 import java.util.Objects;
 
 /**
- * This class is used to set and change the position of all the objects in a game
- *
- * @author Olha Solodovnyk
+ * This class is used to set and change the position of all the objects in a game.
  */
 public class Position implements Cloneable, Comparable<Position> {
     /**
@@ -127,7 +125,7 @@ public class Position implements Cloneable, Comparable<Position> {
     }
 
     @Override
-    public Position clone(){
+    public Position clone() {
         Position clone = null;
         try {
             clone = (Position) super.clone();
@@ -139,7 +137,7 @@ public class Position implements Cloneable, Comparable<Position> {
     @Override
     public boolean equals(Object o) {
         if (this == o)
-            return  true;
+            return true;
         if (o == null || getClass() != o.getClass())
             return false;
         Position position = (Position) o;
@@ -147,7 +145,9 @@ public class Position implements Cloneable, Comparable<Position> {
     }
 
     @Override
-    public int hashCode() {return Objects.hash(x, y);}
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 
 
     @Override

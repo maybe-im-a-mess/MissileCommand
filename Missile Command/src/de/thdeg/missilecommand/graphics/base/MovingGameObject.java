@@ -1,12 +1,12 @@
 package de.thdeg.missilecommand.graphics.base;
 
 /**
- * Interface for moving objects in the game
+ * Interface for moving objects in the game.
  */
-public abstract interface MovingGameObject {
+public interface MovingGameObject {
 
     /**
-     * Updates position for moving objects
+     * Updates position for moving objects.
      */
-    public abstract void updatePosition();
+    void updatePosition();
 }

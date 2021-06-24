@@ -6,9 +6,7 @@ import de.thdeg.missilecommand.graphics.base.GameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
 
 /**
- * Represents a new defender missile
- *
- * @author Olha Solodovnyk
+ * Represents a new defender missile.
  */
 public class Defender extends GameObject {
 
@@ -18,30 +16,29 @@ public class Defender extends GameObject {
                     + " B \n"
                     + "B B\n"
                     + "B B";
-    private final double damage;
-    private boolean alive;
 
 
     /**
-     * A new object "Plane" is created
+     * Creates a new defender missile.
+     *  @param gameView Window to show the GameObject on.
+     * @param x        Coordinate x of the defender.
+     * @param y        Coordinate y of the defender.
      */
-    public Defender(GameView gameView) {
+    public Defender(GameView gameView, double x, double y) {
         super(gameView);
-        this.position = new Position(30, 490);
+        this.position = new Position(x, y);
         this.size = 3;
         this.width = (int) (3 * size);
         this.height = (int) (5 * size);
-        this.damage = 20;
-        this.alive = true;
         this.rotation = 0;
-
     }
 
     @Override
-    public void updateStatus() {}
+    public void updateStatus() {
+    }
 
     /**
-     * Draws the defender to the canvas
+     * Draws the defender to the canvas.
      */
     @Override
     public void addToCanvas() {

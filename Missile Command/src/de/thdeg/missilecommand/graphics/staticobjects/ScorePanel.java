@@ -7,9 +7,7 @@ import de.thdeg.missilecommand.graphics.base.Position;
 import java.awt.*;
 
 /**
- * Displays the current score and highscore of the player.
- *
- * @author Olha Solodovnyk
+ * Displays the current score of the player.
  */
 public class ScorePanel extends GameObject {
     private String scoreString;

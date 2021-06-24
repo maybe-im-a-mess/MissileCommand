@@ -7,9 +7,7 @@ import de.thdeg.missilecommand.graphics.base.CollidingGameObject;
 import java.util.ArrayList;
 
 /**
- * Represents a new shot
- *
- * @author Olha Solodovnyk
+ * Represents a new shot.
  */
 public abstract class Shot extends CollidingGameObject {
     protected Shot(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {

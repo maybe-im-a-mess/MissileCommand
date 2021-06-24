@@ -8,19 +8,22 @@ import de.thdeg.missilecommand.graphics.staticobjects.*;
 import java.util.LinkedList;
 
 /**
- * Manages the objects of the game
+ * Manages the objects of the game.
  */
 public class GameObjectManager {
     private final LinkedList<GameObject> gameObjects;
     private final LinkedList<CrossShot> crossShots;
     private final LinkedList<Missile> missiles;
+    private final LinkedList<MissileShot> missileShots;
     private final LinkedList<Plane> planes;
     private final LinkedList<PlaneShot> planeShots;
     private final LinkedList<City> cities;
+    private final LinkedList<Defender> defenders1;
+    private final LinkedList<Defender> defenders2;
+    private final LinkedList<Defender> defenders3;
 
     private final Background background;
     private final Ground ground;
-    private final Defender defender;
     private final ScorePanel scorePanel;
     private final Cross cross;
 
@@ -29,16 +32,18 @@ public class GameObjectManager {
         this.gameObjects = new LinkedList<>();
         this.crossShots = new LinkedList<>();
         this.missiles = new LinkedList<>();
+        this.missileShots = new LinkedList<>();
         this.planes = new LinkedList<>();
         this.planeShots = new LinkedList<>();
         this.cities = new LinkedList<>();
+        this.defenders1 = new LinkedList<>();
+        this.defenders2 = new LinkedList<>();
+        this.defenders3 = new LinkedList<>();
 
         this.background = new Background(gameView);
         this.ground = new Ground(gameView);
-        this.defender = new Defender(gameView);
         this.scorePanel = new ScorePanel(gameView);
         this.cross = new Cross(gameView);
-
     }
 
     void updateGameObjects() {
@@ -46,37 +51,21 @@ public class GameObjectManager {
 
         gameObjects.add(background);
         gameObjects.add(ground);
-        gameObjects.add(defender);
         gameObjects.add(scorePanel);
         gameObjects.add(cross);
+        gameObjects.addAll(defenders1);
+        gameObjects.addAll(defenders2);
+        gameObjects.addAll(defenders3);
         gameObjects.addAll(cities);
         gameObjects.addAll(planes);
+        gameObjects.addAll(planeShots);
         gameObjects.addAll(crossShots);
         gameObjects.addAll(missiles);
-        gameObjects.addAll(planeShots);
-
+        gameObjects.addAll(missileShots);
 
         for (GameObject gameObject : gameObjects) {
             gameObject.update();
             gameObject.addToCanvas();
-        }
-
-    }
-
-    /**
-     * Adapts the position of all game objects.
-     *
-     * @param adaptX Adaption to the right.
-     * @param adaptY Adaption downwards.
-     */
-    public void moveWorld(double adaptX, double adaptY) {
-        for (GameObject gameObject : gameObjects) {
-            if (gameObject.getClass() != Cross.class
-                    && gameObject.getClass() != Ground.class
-                    && gameObject.getClass() != ScorePanel.class
-                    && gameObject.getClass() != Defender.class) {
-                gameObject.adaptPosition(adaptX, adaptY);
-            }
         }
     }
 
@@ -84,25 +73,43 @@ public class GameObjectManager {
         return cross;
     }
 
-    LinkedList<CrossShot> getCrossShot() {
+    ScorePanel getScorePanel() {
+        return scorePanel;
+    }
+
+    LinkedList<CrossShot> getCrossShots() {
         return crossShots;
     }
 
-    LinkedList<Missile> getMissileShot() {
+    LinkedList<Missile> getMissiles() {
         return missiles;
     }
 
-    LinkedList<Plane> getPlane() {
+    LinkedList<MissileShot> getMissileShots() {
+        return missileShots;
+    }
+
+    LinkedList<Plane> getPlanes() {
         return planes;
     }
 
-    LinkedList<PlaneShot> getPlaneShot() {
+    LinkedList<PlaneShot> getPlaneShots() {
         return planeShots;
     }
 
-    LinkedList<City> getCity() {
+    LinkedList<City> getCities() {
         return cities;
     }
 
-    ScorePanel getScorePanel() {return scorePanel;}
+    LinkedList<Defender> getDefenders1() {
+        return defenders1;
+    }
+
+    LinkedList<Defender> getDefenders2() {
+        return defenders2;
+    }
+
+    LinkedList<Defender> getDefenders3() {
+        return defenders3;
+    }
 }
