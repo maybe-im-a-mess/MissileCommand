@@ -3,6 +3,9 @@ package de.thdeg.missilecommand.game.managers;
 import de.thdeg.missilecommand.gameview.GameView;
 import de.thdeg.missilecommand.graphics.base.GameObject;
 import de.thdeg.missilecommand.graphics.movingobjects.*;
+import de.thdeg.missilecommand.graphics.movingobjects.shots.CrossShot;
+import de.thdeg.missilecommand.graphics.movingobjects.shots.MissileShot;
+import de.thdeg.missilecommand.graphics.movingobjects.shots.PlaneShot;
 import de.thdeg.missilecommand.graphics.staticobjects.*;
 
 import java.util.LinkedList;
@@ -22,10 +25,11 @@ public class GameObjectManager {
     private final LinkedList<Defender> defenders2;
     private final LinkedList<Defender> defenders3;
 
-    private final Background background;
+    private static Background background;
     private final Ground ground;
     private final ScorePanel scorePanel;
     private final Cross cross;
+    private final Overlay overlay;
 
 
     GameObjectManager(GameView gameView) {
@@ -40,10 +44,11 @@ public class GameObjectManager {
         this.defenders2 = new LinkedList<>();
         this.defenders3 = new LinkedList<>();
 
-        this.background = new Background(gameView);
+        background = new Background(gameView);
         this.ground = new Ground(gameView);
         this.scorePanel = new ScorePanel(gameView);
         this.cross = new Cross(gameView);
+        this.overlay = new Overlay(gameView);
     }
 
     void updateGameObjects() {
@@ -62,6 +67,7 @@ public class GameObjectManager {
         gameObjects.addAll(crossShots);
         gameObjects.addAll(missiles);
         gameObjects.addAll(missileShots);
+        gameObjects.add(overlay);
 
         for (GameObject gameObject : gameObjects) {
             gameObject.update();
@@ -73,8 +79,16 @@ public class GameObjectManager {
         return cross;
     }
 
+    static Background getBackground() {
+        return background;
+    }
+
     ScorePanel getScorePanel() {
         return scorePanel;
+    }
+
+    Overlay getOverlay() {
+        return overlay;
     }
 
     LinkedList<CrossShot> getCrossShots() {

@@ -7,11 +7,19 @@ public class Player {
     /**
      * The number of lives, the player starts with.
      */
-    public static final int MAXIMUM_NUMBER_OF_LIVES = 6;
+    public static final int MAXIMUM_NUMBER_OF_CITIES = 6;
+    /**
+     * The number of defenders, the player starts with.
+     */
+    public static final int MAXIMUM_NUMBER_OF_DEFENDERS = 30;
     /**
      * Current number of lives of the player.
      */
-    public int lives;
+    public int citiesLeft;
+    /**
+     * Current number of defenders of the player.
+     */
+    public int defendersLeft;
     /**
      * Current score of the player.
      */
@@ -30,6 +38,6 @@ public class Player {
      * Creates a player with lives set to maximum an a score of 0.
      */
     public Player() {
-        this.lives = MAXIMUM_NUMBER_OF_LIVES;
+        this.citiesLeft = MAXIMUM_NUMBER_OF_CITIES;
     }
 }

@@ -37,6 +37,17 @@ public class Cross extends GameObject {
     }
 
     /**
+     * Resets the cross for the next level.
+     *
+     * @param resetPosition Determines if the position should be reset to the original position.
+     */
+    public void resetCross(boolean resetPosition) {
+        if (resetPosition) {
+            position = new Position(GameView.WIDTH / 2d, GameView.HEIGHT / 2d);
+        }
+    }
+
+    /**
      * The position of the object changes to the left.
      */
     public void left() {

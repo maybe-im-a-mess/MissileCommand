@@ -4,8 +4,6 @@ import de.thdeg.missilecommand.gameview.GameView;
 import de.thdeg.missilecommand.graphics.base.GameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
 
-import java.awt.*;
-
 /**
  * Displays the current score of the player.
  */
@@ -31,7 +29,7 @@ public class ScorePanel extends GameObject {
 
     @Override
     public void addToCanvas() {
-        gameView.addTextToCanvas(scoreString, position.x, position.y, size, Color.white, rotation);
+
     }
 
     /**

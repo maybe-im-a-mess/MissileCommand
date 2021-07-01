@@ -12,7 +12,6 @@ import java.util.Random;
  * Represents a new plane
  */
 public class Plane extends CollidableGameObject implements MovingGameObject {
-    private enum Status {STANDARD, EXPLODING, EXPLODED}
     private final static String PLANE =
             "RR   RRR\n"
                     + "RWR  RWWR\n"
@@ -35,14 +34,13 @@ public class Plane extends CollidableGameObject implements MovingGameObject {
      */
     public Plane(GameView gameView) {
         super(gameView);
-        Status status = Status.STANDARD;
         Random random = new Random();
-        this.position = new Position(1, random.nextInt(GameView.HEIGHT / 4));
+        this.position = new Position(1, random.nextInt(GameView.HEIGHT / 3 + 50));
         objectID = "plane" + position.x + position.y;
         this.size = 1.5;
         this.width = (int) (17 * size);
         this.height = (int) (12 * size);
-        this.speedInPixel = 0.5;
+        this.speedInPixel = 0.4;
         this.rotation = 0;
         this.hitBox.width = width;
         this.hitBox.height = height;
@@ -60,17 +58,31 @@ public class Plane extends CollidableGameObject implements MovingGameObject {
 
     @Override
     public void updatePosition() {
-        if (position.x + width <= GameView.WIDTH && rotation == 0) {
-            position.right(speedInPixel);
+        position.right(speedInPixel);
+    }
+
+    private void destroyPlaneIfItHasLeftTheScreen() {
+        if (position.x > GameView.WIDTH) {
+            gamePlayManager.destroy(this);
         }
+    }
+
+    /**
+     * Set speed of the plane.
+     *
+     * @param speed Speed to set.
+     */
+    public void setSpeed(double speed) {
+        speedInPixel = speed;
     }
 
     @Override
     public void updateStatus() {
         if (gameView.timerExpired("Shoot", objectID)) {
-            gameView.setTimer("Shoot", objectID, 4000);
+            gameView.setTimer("Shoot", objectID, 6500);
             gamePlayManager.shootPlaneShot(position);
         }
+        destroyPlaneIfItHasLeftTheScreen();
     }
 
     @Override

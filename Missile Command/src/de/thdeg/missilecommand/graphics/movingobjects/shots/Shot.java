@@ -1,4 +1,4 @@
-package de.thdeg.missilecommand.graphics.movingobjects;
+package de.thdeg.missilecommand.graphics.movingobjects.shots;
 
 import de.thdeg.missilecommand.gameview.GameView;
 import de.thdeg.missilecommand.graphics.base.CollidableGameObject;

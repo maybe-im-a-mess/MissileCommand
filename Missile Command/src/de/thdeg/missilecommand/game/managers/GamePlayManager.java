@@ -1,14 +1,21 @@
 package de.thdeg.missilecommand.game.managers;
 
-import de.thdeg.missilecommand.game.utilities.Level;
+import de.thdeg.missilecommand.game.utilities.Countdown;
 import de.thdeg.missilecommand.game.utilities.Player;
 import de.thdeg.missilecommand.gameview.GameView;
 import de.thdeg.missilecommand.graphics.base.CollidableGameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
-import de.thdeg.missilecommand.graphics.movingobjects.*;
-import de.thdeg.missilecommand.graphics.staticobjects.Background;
+import de.thdeg.missilecommand.graphics.movingobjects.Cross;
+import de.thdeg.missilecommand.graphics.movingobjects.Missile;
+import de.thdeg.missilecommand.graphics.movingobjects.Plane;
+import de.thdeg.missilecommand.graphics.movingobjects.shots.CrossShot;
+import de.thdeg.missilecommand.graphics.movingobjects.shots.MissileShot;
+import de.thdeg.missilecommand.graphics.movingobjects.shots.PlaneShot;
+import de.thdeg.missilecommand.graphics.movingobjects.shots.Shot;
 import de.thdeg.missilecommand.graphics.staticobjects.City;
 import de.thdeg.missilecommand.graphics.staticobjects.Defender;
+import de.thdeg.missilecommand.screens.EndScreen;
+import de.thdeg.missilecommand.screens.StartScreen;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -17,61 +24,147 @@ import java.util.LinkedList;
  * Manages the game.
  */
 public class GamePlayManager {
+    private final static int COUNTDOWN_LENGTH = 30;
     private final GameView gameView;
     private final GameObjectManager gameObjectManager;
-    private boolean listHasBeenDeleted;
+    private final Player player;
+    private LevelManager levelManager;
+    private Countdown countdown;
+    private boolean levelOver;
+    private boolean gameOver;
+    private int planeCounter;
+    private int missileCounter;
+    private int planeWasRemoved;
+    private boolean nextLevel;
+    private boolean nextGame;
 
 
     GamePlayManager(GameView gameView, GameObjectManager gameObjectManager) {
         this.gameView = gameView;
         this.gameObjectManager = gameObjectManager;
-        gameObjectManager.getCross().setGamePlayManager(this);
-        Player player = new Player();
-        player.level = new Level("Level 1", new Background(gameView), 2, 5);
+        this.gameObjectManager.getCross().setGamePlayManager(this);
+        this.player = new Player();
+        planeCounter = 0;
+        missileCounter = 0;
+        planeWasRemoved = 0;
+        initializeGame();
+    }
+
+    private void initializeGame() {
+        StartScreen startScreen = new StartScreen(gameView);
+        startScreen.showStartScreen();
+        levelManager = new LevelManager(startScreen.isDifficultySetToEasy());
+        this.player.citiesLeft = Player.MAXIMUM_NUMBER_OF_CITIES;
+        this.player.defendersLeft = Player.MAXIMUM_NUMBER_OF_DEFENDERS;
+        this.player.score = 0;
+        gameView.playSound("alert.wav", false);
+        gameObjectManager.getCities().clear();
+        initializeLevel();
+    }
+
+    private void initializeLevel() {
+        countdown = new Countdown(gameView);
+        countdown.startCountdown(COUNTDOWN_LENGTH);
+        player.level = levelManager.getNextLevel();
+        missileCounter = 0;
+        planeCounter = 0;
+        planeWasRemoved = 0;
+        player.defendersLeft = Player.MAXIMUM_NUMBER_OF_DEFENDERS;
+        gameObjectManager.getMissileShots().clear();
+        gameObjectManager.getPlaneShots().clear();
+        gameObjectManager.getCrossShots().clear(); //Ne grusti, pozhalusto. ne bud'((
+        gameObjectManager.getPlanes().clear();
+        gameObjectManager.getMissiles().clear();
         gameObjectManager.getScorePanel().setScore(0);
+        gameObjectManager.getCross().resetCross(true);
+        gameObjectManager.getOverlay().showMessage("DEFEND CITIES");
+    }
+
+    private void nextGame() {
+        if (!gameOver) {
+            gameView.setTimer("game", "GamePlayManager", 3000);
+            gameOver = true;
+            gameObjectManager.getOverlay().showMessage("Game Over!");
+            countdown.stop();
+            nextGame = true;
+        }
+        if (gameView.timerExpired("game", "GamePlayManager")) {
+            gameOver = false;
+            nextGame = false;
+            gameView.stopAllSounds();
+            EndScreen endScreen = new EndScreen(gameView);
+            endScreen.showEndScreen(player.score);
+            initializeGame();
+        }
+    }
+
+    private void nextLevel() {
+        if (!levelOver) {
+            gameView.setTimer("level", "GamePlayManager", 3000);
+            levelOver = true;
+            gameObjectManager.getOverlay().showMessage("Well done!");
+            countdown.stop();
+            nextLevel = true;
+        }
+        if (gameView.timerExpired("level", "GamePlayManager")) {
+            levelOver = false;
+            initializeLevel();
+            nextLevel = false;
+        }
     }
 
     /**
      * Manages the game play.
      */
     void updateGamePlay() {
-        createCities();
-        spawnAndDestroyPlanes();
-        spawnAndDestroyMissiles();
-        spawnAndDestroyDefenders();
+        if (player.citiesLeft < 0 || player.defendersLeft <= 0) {
+            nextGame();
+            spawnDefenders();
+        } else if (planeWasRemoved == player.level.numberOfPlanes && gameObjectManager.getMissileShots().isEmpty()) {
+            if (levelManager.hasNextLevel()) {
+                nextLevel();
+                spawnDefenders();
+            } else {
+                nextGame();
+                spawnDefenders();
+            }
+        } else {
+            createCities();
+            spawnPlanes();
+            spawnMissiles();
+            spawnDefenders();
+        }
     }
 
-    void spawnAndDestroyPlanes() {
-        LinkedList<Plane> planes = gameObjectManager.getPlanes();
-        if (gameView.timerExpired("spawnPlane", "GamePlayManager")) {
-            gameView.setTimer("spawnPlane", "GamePlayManager", 8000);
-            Plane plane = new Plane(gameView);
-            plane.setGamePlayManager(this);
-            planes.add(plane);
-        }
-        if (!listHasBeenDeleted && gameView.getGameTimeInMilliseconds() > 100_000) {
-            planes.clear();
-            listHasBeenDeleted = true;
+    void spawnPlanes() {
+        if (gameObjectManager.getPlanes().size() < player.level.numberOfPlanes && planeCounter < player.level.numberOfPlanes) {
+            if (gameView.timerExpired("spawnPlane", "GamePlayManager")) {
+                gameView.setTimer("spawnPlane", "GamePlayManager", 8000);
+                Plane plane = new Plane(gameView);
+                plane.setSpeed(player.level.speedOfShots);
+                plane.setGamePlayManager(this);
+                gameObjectManager.getPlanes().add(plane);
+                planeCounter++;
+            }
         }
     }
 
-    void spawnAndDestroyMissiles() {
-        LinkedList<Missile> missiles = gameObjectManager.getMissiles();
-        if (gameView.timerExpired("spawnMissile", "GamePlayManager")) {
-            gameView.setTimer("spawnMissile", "GamePlayManager", 8000);
-            Missile missile = new Missile(gameView);
-            missile.setGamePlayManager(this);
-            missiles.add(missile);
-        }
-        if (!listHasBeenDeleted && gameView.getGameTimeInMilliseconds() > 10_000) {
-            missiles.clear();
-            listHasBeenDeleted = true;
+    void spawnMissiles() {
+        if (gameObjectManager.getMissiles().size() < player.level.numberOfMissiles && missileCounter < player.level.numberOfMissiles) {
+            if (gameView.timerExpired("spawnMissile", "GamePlayManager")) {
+                gameView.setTimer("spawnMissile", "GamePlayManager", 8000);
+                Missile missile = new Missile(gameView);
+                missile.setGamePlayManager(this);
+                gameObjectManager.getMissiles().add(missile);
+                missileCounter++;
+            }
         }
     }
 
     void createCities() {
         LinkedList<City> cities = gameObjectManager.getCities();
-        if (cities.isEmpty()) {
+        if (cities.isEmpty() || nextGame) {
+            nextGame = false;
             City city = new City(gameView, 155, 480);
             cities.add(city);
             city.setGamePlayManager(this);
@@ -91,14 +184,18 @@ public class GamePlayManager {
             cities.add(city);
             city.setGamePlayManager(this);
         }
-
     }
 
-    void spawnAndDestroyDefenders() {
+    void spawnDefenders() {
         LinkedList<Defender> defenders1 = gameObjectManager.getDefenders1();
         LinkedList<Defender> defenders2 = gameObjectManager.getDefenders2();
         LinkedList<Defender> defenders3 = gameObjectManager.getDefenders3();
-        if (defenders1.isEmpty() && defenders2.isEmpty() && defenders3.isEmpty()) {
+        if (defenders1.isEmpty() && defenders2.isEmpty() && defenders3.isEmpty() || nextLevel || nextGame) {
+            defenders1.clear();
+            defenders2.clear();
+            defenders3.clear();
+            nextLevel = false;
+            nextGame = false;
             for (int rows = 0; rows <= 4; rows++) {
                 for (int rockets = 0; rockets < rows; rockets++) {
                     double x = rows * 16;
@@ -150,20 +247,76 @@ public class GamePlayManager {
         LinkedList<Defender> defenders1 = gameObjectManager.getDefenders1();
         LinkedList<Defender> defenders2 = gameObjectManager.getDefenders2();
         LinkedList<Defender> defenders3 = gameObjectManager.getDefenders3();
-        if (!defenders1.isEmpty() && result == dist1) {
-            crossShot.getPosition().x = 70;
-            defenders1.remove(0);
-
-        } else if (!defenders2.isEmpty() && result == dist2) {
-            crossShot.getPosition().x = GameView.WIDTH / 2d;
-            defenders2.remove(0);
-        } else if (!defenders3.isEmpty() && result == dist3) {
-            crossShot.getPosition().x = GameView.WIDTH - 70;
-            defenders3.remove(0);
+        if (result == dist1) {
+            if (!defenders1.isEmpty()) {
+                crossShot.getPosition().x = 70;
+                crossShot.getPosition().y = GameView.HEIGHT - 20;
+                crossShot.setGamePlayManager(this);
+                gameObjectManager.getCrossShots().add(crossShot);
+                defenders1.remove(0);
+                player.defendersLeft--;
+            } else if (!defenders2.isEmpty()) {
+                crossShot.getPosition().x = GameView.WIDTH / 2d;
+                crossShot.getPosition().y = GameView.HEIGHT - 20;
+                crossShot.setGamePlayManager(this);
+                gameObjectManager.getCrossShots().add(crossShot);
+                defenders2.remove(0);
+                player.defendersLeft--;
+            } else if (!defenders3.isEmpty()) {
+                crossShot.getPosition().x = GameView.WIDTH - 70;
+                crossShot.getPosition().y = GameView.HEIGHT - 20;
+                crossShot.setGamePlayManager(this);
+                gameObjectManager.getCrossShots().add(crossShot);
+                defenders3.remove(0);
+                player.defendersLeft--;
+            }
+        } else if (result == dist2) {
+            if (!defenders2.isEmpty()) {
+                crossShot.getPosition().x = GameView.WIDTH / 2d;
+                crossShot.getPosition().y = GameView.HEIGHT - 20;
+                crossShot.setGamePlayManager(this);
+                gameObjectManager.getCrossShots().add(crossShot);
+                defenders2.remove(0);
+                player.defendersLeft--;
+            } else if (!defenders1.isEmpty()) {
+                crossShot.getPosition().x = 70;
+                crossShot.getPosition().y = GameView.HEIGHT - 20;
+                crossShot.setGamePlayManager(this);
+                gameObjectManager.getCrossShots().add(crossShot);
+                defenders1.remove(0);
+                player.defendersLeft--;
+            } else if (!defenders3.isEmpty()) {
+                crossShot.getPosition().x = GameView.WIDTH - 70;
+                crossShot.getPosition().y = GameView.HEIGHT - 20;
+                crossShot.setGamePlayManager(this);
+                gameObjectManager.getCrossShots().add(crossShot);
+                defenders3.remove(0);
+                player.defendersLeft--;
+            }
+        } else if (result == dist3) {
+            if (!defenders3.isEmpty()) {
+                crossShot.getPosition().x = GameView.WIDTH - 70;
+                crossShot.getPosition().y = GameView.HEIGHT - 20;
+                crossShot.setGamePlayManager(this);
+                gameObjectManager.getCrossShots().add(crossShot);
+                defenders3.remove(0);
+                player.defendersLeft--;
+            } else if (!defenders2.isEmpty()) {
+                crossShot.getPosition().x = GameView.WIDTH / 2d;
+                crossShot.getPosition().y = GameView.HEIGHT - 20;
+                crossShot.setGamePlayManager(this);
+                gameObjectManager.getCrossShots().add(crossShot);
+                defenders2.remove(0);
+                player.defendersLeft--;
+            } else if (!defenders1.isEmpty()) {
+                crossShot.getPosition().x = 70;
+                crossShot.getPosition().y = GameView.HEIGHT - 20;
+                crossShot.setGamePlayManager(this);
+                gameObjectManager.getCrossShots().add(crossShot);
+                defenders1.remove(0);
+                player.defendersLeft--;
+            }
         }
-        crossShot.getPosition().y = GameView.HEIGHT - 20;
-        crossShot.setGamePlayManager(this);
-        gameObjectManager.getCrossShots().add(crossShot);
     }
 
     /**
@@ -177,6 +330,7 @@ public class GamePlayManager {
         PlaneShot planeShot = new PlaneShot(gameView, collidableGameObjects);
         planeShot.getPosition().x = startPosition.x;
         planeShot.getPosition().y = startPosition.y;
+        planeShot.setSpeed(player.level.speedOfShots);
         planeShot.setGamePlayManager(this);
         gameObjectManager.getPlaneShots().add(planeShot);
     }
@@ -192,6 +346,7 @@ public class GamePlayManager {
         MissileShot missileShot = new MissileShot(gameView, collidableGameObjects);
         missileShot.getPosition().x = startPosition.x;
         missileShot.getPosition().y = startPosition.y;
+        missileShot.setSpeed(player.level.speedOfShots);
         missileShot.setGamePlayManager(this);
         gameObjectManager.getMissileShots().add(missileShot);
     }
@@ -205,8 +360,10 @@ public class GamePlayManager {
         if (shot.getClass() == CrossShot.class) {
             gameObjectManager.getCrossShots().remove(shot);
         } else if (shot.getClass() == PlaneShot.class) {
+            player.score += 10;
             gameObjectManager.getPlaneShots().remove(shot);
         } else if (shot.getClass() == MissileShot.class) {
+            player.score += 10;
             gameObjectManager.getMissileShots().remove(shot);
         }
     }
@@ -217,7 +374,9 @@ public class GamePlayManager {
      * @param plane Object to be removed from the window.
      */
     public void destroy(Plane plane) {
+        player.score += 10;
         gameObjectManager.getPlanes().remove(plane);
+        planeWasRemoved++;
     }
 
     /**
@@ -226,6 +385,7 @@ public class GamePlayManager {
      * @param missile Object to be removed from the window.
      */
     public void destroy(Missile missile) {
+        player.score += 10;
         gameObjectManager.getMissiles().remove(missile);
     }
 
@@ -235,6 +395,7 @@ public class GamePlayManager {
      * @param city Object to be removed from the window.
      */
     public void destroy(City city) {
+        player.citiesLeft -= 1;
         gameObjectManager.getCities().remove(city);
     }
 }

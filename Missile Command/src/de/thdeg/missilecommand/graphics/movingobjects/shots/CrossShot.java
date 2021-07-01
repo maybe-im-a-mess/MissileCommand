@@ -1,9 +1,10 @@
-package de.thdeg.missilecommand.graphics.movingobjects;
+package de.thdeg.missilecommand.graphics.movingobjects.shots;
 
 import de.thdeg.missilecommand.gameview.GameView;
 import de.thdeg.missilecommand.graphics.base.CollidableGameObject;
 import de.thdeg.missilecommand.graphics.base.MovingGameObject;
 import de.thdeg.missilecommand.graphics.base.Position;
+import de.thdeg.missilecommand.graphics.movingobjects.Cross;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -26,12 +27,12 @@ public class CrossShot extends Shot implements MovingGameObject {
         super(gameView, objectsToCollideWith);
         this.position = new Position(GameView.WIDTH / 2d, GameView.HEIGHT);
         this.size = 1;
-        this.width = (int) (3 * size);
-        this.height = (int) (3 * size);
+        this.width = (int) (5 * size);
+        this.height = (int) (5 * size);
         this.rotation = 0;
         this.speedInPixel = 5;
-        this.hitBox.width = width * 4;
-        this.hitBox.height = height * 4;
+        this.hitBox.width = width * 5;
+        this.hitBox.height = height * 5;
         this.targetPosition = followMe.getPosition().clone();
     }
 
